@@ -16,13 +16,23 @@ requirejs.config({
   }
 });
 
-require(['js/game.js', 'player'], function (Game, Player) {
+require(['js/game.js', 'player', 'cards'], function (Game, Player, Cards) {
 
   var luiz = new Player('luiz');
   var larissa = new Player('larissa');
 
   var game = new Game(luiz, larissa)
   window.Game = game;
+
+  var i = 0
+  var cards = [];
+  while (i < 5) {
+    cards.push(new Cards.Card({type: 'Thief'}));
+    i += 1;
+  }
+
+  luiz.croupier.setDeck(cards);
+
   game.start();
 
 });
