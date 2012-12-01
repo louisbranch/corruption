@@ -1,4 +1,4 @@
-define(['backbone', 'cards'], function (Backbone, Cards) {
+define(['backbone', 'models/cards'], function (Backbone, Cards) {
 
   var Croupier = Backbone.Model.extend({
 

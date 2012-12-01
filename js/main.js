@@ -16,7 +16,7 @@ requirejs.config({
   }
 });
 
-require(['js/game.js', 'player', 'cards'], function (Game, Player, Cards) {
+require(['js/models/game.js', 'models/player', 'models/cards'], function (Game, Player, Cards) {
 
   var luiz = new Player('luiz');
   var larissa = new Player('larissa');

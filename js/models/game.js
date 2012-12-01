@@ -1,4 +1,4 @@
-define(['backbone', 'battlefield'], function (Backbone, Battlefield) {
+define(['backbone', 'models/battlefield'], function (Backbone, Battlefield) {
 
   var Game = Backbone.Model.extend({
 
