@@ -1,4 +1,5 @@
 requirejs.config({
+  baseUrl: 'js',
   paths: {
     'jquery': 'lib/jquery-1.8.2',
     'underscore': 'lib/underscore',
@@ -15,9 +16,13 @@ requirejs.config({
   }
 });
 
-require(['js/routes/router.js'], function (Router) {
+require(['js/game.js', 'player'], function (Game, Player) {
 
-  var router = new Router();
-  router.init();
+  var luiz = new Player('luiz');
+  var larissa = new Player('larissa');
+
+  var game = new Game(luiz, larissa)
+  window.Game = game;
+  game.start();
 
 });
