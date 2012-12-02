@@ -3,7 +3,8 @@ requirejs.config({
   paths: {
     'jquery': 'lib/jquery-1.8.2',
     'underscore': 'lib/underscore',
-    'backbone': 'lib/backbone'
+    'backbone': 'lib/backbone',
+    'text': 'lib/text'
   },
   shim: {
     'underscore': {
@@ -16,7 +17,7 @@ requirejs.config({
   }
 });
 
-require(['js/models/game.js', 'models/player', 'models/cards'], function (Game, Player, Cards) {
+require(['js/models/game.js', 'views/game', 'models/player', 'models/cards'], function (Game, GameView, Player, Cards) {
 
   var luiz = new Player('luiz');
   var larissa = new Player('larissa');
@@ -32,6 +33,9 @@ require(['js/models/game.js', 'models/player', 'models/cards'], function (Game, 
   }
 
   luiz.croupier.setDeck(cards);
+
+  var gameView = new GameView({model: game});
+  gameView.render();
 
   game.start();
 
