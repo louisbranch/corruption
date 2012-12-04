@@ -2,11 +2,8 @@ define(['backbone'], function (Backbone) {
 
   var Battlefield = Backbone.Model.extend({
 
-    initialize: function () {
-      this.cards = {
-        player1: [],
-        player2: []
-      };
+    initialize: function (game) {
+      this.game = game;
 
       this.effects = {
         player1: [],

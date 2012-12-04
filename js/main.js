@@ -4,6 +4,7 @@ requirejs.config({
     'jquery': 'lib/jquery-1.8.2',
     'underscore': 'lib/underscore',
     'backbone': 'lib/backbone',
+    'mustache': 'lib/mustache',
     'text': 'lib/text'
   },
   shim: {
@@ -33,6 +34,8 @@ require(['js/models/game.js', 'views/game', 'models/player', 'models/cards'], fu
   }
 
   luiz.croupier.setDeck(cards);
+  luiz.croupier.drawInitialHand();
+  larissa.croupier.setDeck(cards);
 
   var gameView = new GameView({model: game});
   gameView.render();

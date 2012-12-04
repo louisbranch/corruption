@@ -4,7 +4,7 @@ define(['backbone', 'models/battlefield'], function (Backbone, Battlefield) {
 
     initialize: function (player1, player2) {
       this.setPlayers(player1, player2);
-      this.battlefield = new Battlefield();
+      this.battlefield = new Battlefield(this);
       this.turns = 0;
     },
 
