@@ -1,0 +1,19 @@
+.visitor-battlefield, .home-battlefield {
+  clear: both;
+}
+
+ul.hand {
+  overflow: hidden;
+}
+
+.full-deck, ul.hand li {
+  float: left;
+  margin: 10px;
+  width: 140px;
+  height: 180px;
+  background-color: #ddd;
+  list-style-type: none;
+  line-height: 180px;
+  text-align: center;
+  overflow: hidden;
+}
