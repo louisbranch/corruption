@@ -4,32 +4,19 @@ define(['jquery', 'backbone', 'underscore', 'mustache', 'text!templates/hand.mus
     var View = Backbone.View.extend({
       tagName: 'li',
 
-      initialize: function () {
-        this.model.bind('removedFromHand', this.remove, this);
-      },
-
-      events: {
-        'click' : 'cast'
-      },
-
       render: function () {
         $(this.el).html(Mustache.render(Template, this.model.toJSON()));
         return this;
-      },
-
-      cast: function () {
-        this.model.cast();
       }
 
     });
 
     var Collection = Backbone.View.extend({
       tagName: 'ul',
-      className: 'hand',
+      className: 'table',
 
       initialize: function () {
         this.collection.bind('add', this.add, this);
-        this.collection.bind('remove', this.remove, this);
       },
 
       render: function () {
@@ -45,10 +32,6 @@ define(['jquery', 'backbone', 'underscore', 'mustache', 'text!templates/hand.mus
       add: function (card) {
         var view = new View({model: card});
         $(this.el).append(view.render().el);
-      },
-
-      remove: function (card) {
-        card.trigger('removedFromHand');
       }
 
     });
@@ -57,4 +40,3 @@ define(['jquery', 'backbone', 'underscore', 'mustache', 'text!templates/hand.mus
 
   }
 );
-

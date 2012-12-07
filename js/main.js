@@ -27,15 +27,17 @@ require(['js/models/game.js', 'views/game', 'models/player', 'models/cards'], fu
   window.Game = game;
 
   var i = 0
-  var cards = [];
+  var cards1 = [];
+  var cards2 = [];
   while (i < 15) {
-    cards.push(new Cards.Card({type: 'Thief'}));
+    cards1.push(new Cards.Card({type: 'Thief'}));
+    cards2.push(new Cards.Card({type: 'Thief'}));
     i += 1;
   }
 
-  luiz.croupier.setDeck(cards);
+  luiz.croupier.setDeck(cards1);
+  larissa.croupier.setDeck(cards2);
   luiz.croupier.drawInitialHand();
-  larissa.croupier.setDeck(cards);
   larissa.croupier.drawInitialHand();
 
   var gameView = new GameView({model: game});

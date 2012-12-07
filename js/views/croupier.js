@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'text!templates/croupier.mustache', 'views/library', 'views/hand'],
-  function ($, Backbone, Template, Library, Hand) {
+define(['jquery', 'backbone', 'text!templates/croupier.mustache', 'views/library', 'views/hand', 'views/table'],
+  function ($, Backbone, Template, Library, Hand, Table) {
 
     var View = Backbone.View.extend({
       className: 'croupier',
@@ -13,6 +13,7 @@ define(['jquery', 'backbone', 'text!templates/croupier.mustache', 'views/library
       renderSubViews: function () {
         this.renderLibrary();
         this.renderHand();
+        this.renderTable();
       },
 
       renderLibrary: function () {
@@ -23,6 +24,11 @@ define(['jquery', 'backbone', 'text!templates/croupier.mustache', 'views/library
       renderHand: function () {
         var handView = new Hand({collection: this.model.hand});
         $(this.el).find('.hand').replaceWith(handView.render().el);
+      },
+
+      renderTable: function () {
+        var tableView = new Table({collection: this.model.table});
+        $(this.el).find('.table').replaceWith(tableView.render().el);
       }
 
     });
