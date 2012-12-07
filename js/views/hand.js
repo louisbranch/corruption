@@ -15,14 +15,23 @@ define(['jquery', 'backbone', 'underscore', 'mustache', 'text!templates/hand.mus
       tagName: 'ul',
       className: 'hand',
 
+      initialize: function () {
+        this.collection.bind('add', this.add, this);
+      },
+
       render: function () {
         var list = document.createDocumentFragment();
-        _.each(this.collection.models, function (hand){
-          var view = new View({model: hand});
+        _.each(this.collection.models, function (card){
+          var view = new View({model: card});
           list.appendChild(view.render().el);
         });
         $(this.el).append(list);
         return this;
+      },
+
+      add: function (card) {
+        var view = new View({model: card});
+        $(this.el).append(view.render().el);
       }
 
     });

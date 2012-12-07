@@ -51,7 +51,7 @@ define(['backbone'], function (Backbone) {
   var Library = Cards.extend({
 
     draw: function (n, hand) {
-      var n = n || 0;
+      var n = n || 1;
 
       if (this.length < n) {
         throw 'Not enough cards!'

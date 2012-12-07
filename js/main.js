@@ -28,7 +28,7 @@ require(['js/models/game.js', 'views/game', 'models/player', 'models/cards'], fu
 
   var i = 0
   var cards = [];
-  while (i < 5) {
+  while (i < 15) {
     cards.push(new Cards.Card({type: 'Thief'}));
     i += 1;
   }
@@ -36,6 +36,7 @@ require(['js/models/game.js', 'views/game', 'models/player', 'models/cards'], fu
   luiz.croupier.setDeck(cards);
   luiz.croupier.drawInitialHand();
   larissa.croupier.setDeck(cards);
+  larissa.croupier.drawInitialHand();
 
   var gameView = new GameView({model: game});
   gameView.render();
