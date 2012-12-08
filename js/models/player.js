@@ -2,8 +2,7 @@ define(['backbone', 'models/bank', 'models/croupier'], function (Backbone, Bank,
 
   var Player = Backbone.Model.extend({
 
-    initialize: function (name) {
-      this.name = name; // Replace with User
+    initialize: function () {
       this.bank = new Bank(this);
       this.croupier = new Croupier(this);
     }

@@ -20,8 +20,8 @@ requirejs.config({
 
 require(['js/models/game.js', 'views/game', 'models/player', 'models/cards'], function (Game, GameView, Player, Cards) {
 
-  var luiz = new Player('luiz');
-  var larissa = new Player('larissa');
+  var luiz = new Player({name: 'luiz'});
+  var larissa = new Player({name: 'larissa'});
 
   var game = new Game(luiz, larissa)
   window.Game = game;
