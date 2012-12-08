@@ -4,11 +4,11 @@ define(['backbone'], function (Backbone) {
 
     initialize: function (player) {
       this.player = player;
-      this.funds = 1000;
+      this.set('funds', 1000);
     },
 
     payCost: function (amount) {
-      if ( this.funds - amount <= 0 ) {
+      if ( this.get('funds') - amount <= 0 ) {
         return false;
       } else {
         this.removeFunds(amount);
@@ -17,15 +17,18 @@ define(['backbone'], function (Backbone) {
     },
 
     addFunds: function (amount) {
-      return this.funds += amount;
+      var funds = this.get('funds')
+      this.set('funds', funds + amount);
+      return this.get('funds');
     },
 
     removeFunds: function (amount) {
-      this.funds -= amount;
-      if (this.funds <= 0) {
+      var funds = this.get('funds')
+      this.set('funds', funds - amount);
+      if (this.get('funds') <= 0) {
         throw 'DEAD!'
       }
-      return this.funds;
+      return this.get('funds');
     }
 
   })

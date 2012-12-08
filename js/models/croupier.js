@@ -26,7 +26,7 @@ define(['backbone', 'models/cards'], function (Backbone, Cards) {
       if ( !this.hand.include(card) ) {
         throw 'Card must be in your hand'
       }
-      if ( !this.player.bank.payCost(card.cost) ) {
+      if ( !this.player.bank.payCost(card.get('cost')) ) {
         throw 'Not enough funds'
       }
       this.hand.remove(card);

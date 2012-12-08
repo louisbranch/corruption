@@ -30,8 +30,8 @@ require(['js/models/game.js', 'views/game', 'models/player', 'models/cards'], fu
   var cards1 = [];
   var cards2 = [];
   while (i < 15) {
-    cards1.push(new Cards.Card({type: 'Thief'}));
-    cards2.push(new Cards.Card({type: 'Thief'}));
+    cards1.push(new Cards.Card({type: 'Thief', cost: 100}));
+    cards2.push(new Cards.Card({type: 'Thief', cost: 100}));
     i += 1;
   }
 
