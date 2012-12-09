@@ -13,7 +13,7 @@ function ($, Backbone, Mustache, Template, Bank) {
     },
 
     renderBank: function () {
-      var bankView = new Bank({model: this.model.bank});
+      var bankView = new Bank({model: this.model.croupier.bank});
       $(this.el).find('.bank').replaceWith(bankView.render().el);
     }
 

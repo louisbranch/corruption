@@ -6,6 +6,7 @@ define(['jquery', 'backbone', 'mustache', 'text!templates/display.mustache'], fu
       this.hand = options.hand;
       this.library = options.library;
       this.hand.bind('add', this.render, this);
+      this.hand.bind('remove', this.render, this);
     },
 
     render: function () {

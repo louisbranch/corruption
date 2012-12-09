@@ -1,9 +1,8 @@
-define(['backbone', 'models/bank', 'models/croupier'], function (Backbone, Bank, Croupier) {
+define(['backbone', 'models/croupier'], function (Backbone, Croupier) {
 
   var Player = Backbone.Model.extend({
 
     initialize: function () {
-      this.bank = new Bank(this);
       this.croupier = new Croupier(this);
     }
 

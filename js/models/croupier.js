@@ -1,9 +1,10 @@
-define(['backbone', 'models/cards'], function (Backbone, Cards) {
+define(['backbone', 'models/bank', 'models/cards'], function (Backbone, Bank, Cards) {
 
   var Croupier = Backbone.Model.extend({
 
     initialize: function (player) {
       this.player = player;
+      this.bank = new Bank(this);
     },
 
     setDeck: function (cards) {
@@ -26,11 +27,12 @@ define(['backbone', 'models/cards'], function (Backbone, Cards) {
       if ( !this.hand.include(card) ) {
         throw 'Card must be in your hand'
       }
-      if ( !this.player.bank.payCost(card.get('cost')) ) {
+      if ( !this.bank.payCost(card.get('cost')) ) {
         throw 'Not enough funds'
       }
       this.hand.remove(card);
       this.table.add(card);
+      card.onCast();
     }
 
   })

@@ -1,40 +1,18 @@
-define(['backbone'], function (Backbone) {
+define(['backbone', 'models/card_types'], function (Backbone, CardTypes) {
 
   var Card = Backbone.Model.extend({
 
     initialize: function (options) {
-      this.setType(options.type);
-      this.setAbilities(options.abilities);
-      this.setEffects(options.effects);
-    },
-
-    setType: function (type) {
-      if (!type) { throw 'Invalid Type' }
-      this.type = type;
-    },
-
-    setAbilities: function (abilities) {
-      this.abilities = [];
-      if (!abilities) {return;}
-      abilities.forEach( function (ability) {
-        var newAbility = Abilities.find(ability);
-        this.abilities.push(newAbility);
-      });
-    },
-
-    setEffects: function (effects) {
-      this.effects = [];
-      if (!effects) {return;}
-      effects.forEach( function (effect) {
-        var newEffect = Effects.find(effect);
-        this.effects.push(newEffect);
-      });
+      this.type = new CardTypes[name](this);
     },
 
     cast: function () {
       this.collection.croupier.castCard(this);
-      // Trigger Effects
-    }
+    },
+
+    // Hook functions
+    onCast: function () {},
+    eachTurn: function () {}
 
   });
 

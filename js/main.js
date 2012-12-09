@@ -18,7 +18,8 @@ requirejs.config({
   }
 });
 
-require(['js/models/game.js', 'views/game', 'models/player', 'models/cards'], function (Game, GameView, Player, Cards) {
+require(['js/models/game.js', 'views/game', 'models/player', 'models/cards'],
+  function (Game, GameView, Player, Cards) {
 
   var luiz = new Player({name: 'luiz'});
   var larissa = new Player({name: 'larissa'});
@@ -30,8 +31,8 @@ require(['js/models/game.js', 'views/game', 'models/player', 'models/cards'], fu
   var cards1 = [];
   var cards2 = [];
   while (i < 15) {
-    cards1.push(new Cards.Card({type: 'Thief', cost: 100}));
-    cards2.push(new Cards.Card({type: 'Thief', cost: 100}));
+    cards1.push(new Cards.Card({type: 'Mana', cost: 100, initialFunds: 200}));
+    cards2.push(new Cards.Card({type: 'Mana', cost: 100}));
     i += 1;
   }
 
@@ -42,6 +43,7 @@ require(['js/models/game.js', 'views/game', 'models/player', 'models/cards'], fu
 
   var gameView = new GameView({model: game});
   gameView.render();
+
 
   game.start();
 
