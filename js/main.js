@@ -18,8 +18,8 @@ requirejs.config({
   }
 });
 
-require(['js/models/game.js', 'views/game', 'models/player', 'models/cards'],
-  function (Game, GameView, Player, Cards) {
+require(['js/models/game.js', 'views/game', 'models/player', 'fake_deck'],
+  function (Game, GameView, Player, FakeDeck) {
 
   var luiz = new Player({name: 'luiz'});
   var larissa = new Player({name: 'larissa'});
@@ -27,28 +27,8 @@ require(['js/models/game.js', 'views/game', 'models/player', 'models/cards'],
   var game = new Game(luiz, larissa)
   window.Game = game;
 
-  var i = 0
-  var cards1 = [];
-  var cards2 = [];
-  while (i < 15) {
-    cards1.push(new Cards.Card(
-      {
-        cost: 0,
-        type: 'Mana',
-        effects: [
-          {
-            type: 'addFunds',
-            trigger: 'onCast',
-            amount: 100
-          }
-        ]
-      }
-    ));
-    i += 1;
-  }
-
-  luiz.croupier.setDeck(cards1);
-  larissa.croupier.setDeck(cards1);
+  luiz.croupier.setDeck(new FakeDeck());
+  larissa.croupier.setDeck(new FakeDeck());
   luiz.croupier.drawInitialHand();
   larissa.croupier.drawInitialHand();
 
