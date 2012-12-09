@@ -3,14 +3,16 @@ define(['backbone', 'models/card_types', 'models/effects'], function (Backbone, 
   var Card = Backbone.Model.extend({
 
     initialize: function (options) {
-      this.setEffects(options.effects);
-      this.type = new CardTypes[options.type](this);
+      this.type = CardTypes(options.type);
+      var effects = options.effects.concat(this.type.effects);
+      this.setEffects(effects);
     },
 
     setEffects: function (effects) {
       var card = this;
       var triggers = {
         onCast: [],
+        afterCast: [],
         eachTurn: []
       };
 
@@ -28,6 +30,8 @@ define(['backbone', 'models/card_types', 'models/effects'], function (Backbone, 
 
     cast: function () {
       this.collection.croupier.castCard(this);
+      this.onCast();
+      this.afterCast();
     },
 
     onCast: function () {
@@ -36,7 +40,17 @@ define(['backbone', 'models/card_types', 'models/effects'], function (Backbone, 
       });
     },
 
-    eachTurn: function () {}
+    afterCast: function () {
+      this.get('afterCast').forEach(function (effect) {
+        effect();
+      });
+    },
+
+    eachTurn: function () {
+      this.get('eachTurn').forEach(function (effect) {
+        effect();
+      });
+    }
 
   });
 

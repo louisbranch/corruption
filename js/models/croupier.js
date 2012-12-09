@@ -32,7 +32,6 @@ define(['backbone', 'models/bank', 'models/cards'], function (Backbone, Bank, Ca
       }
       this.hand.remove(card);
       this.table.add(card);
-      card.onCast();
     }
 
   })

@@ -1,15 +1,23 @@
 define(function () {
 
-  var Mana = (function () {
-
-    var Mana = function () {
-    };
-    return Mana;
-
-  })();
-
-  return {
-    Mana: Mana
+  var types = {
+    Mana: {
+      effects: []
+    },
+    Sorcery: {
+      effects: [
+        {
+          type: 'destroy',
+          trigger: 'afterCast'
+        }
+      ]
+    }
   };
+
+  var CardType = function (type) {
+    return types[type];
+  };
+
+  return CardType;
 
 });
