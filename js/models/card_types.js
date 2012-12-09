@@ -1,7 +1,7 @@
 define(function () {
 
   var types = {
-    Mana: {
+    Land: {
       effects: []
     },
     Sorcery: {

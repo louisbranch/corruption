@@ -1,5 +1,13 @@
 define([], function () {
 
+  var getCroupier = function (card) {
+    return card.collection.croupier;
+  };
+
+  var getEnemy = function (card) {
+    return getCroupier(card).player.getEnemy();
+  };
+
   var Effects = {
 
     addFunds: function (card, options) {
@@ -12,7 +20,15 @@ define([], function () {
     drawCard: function (card, options) {
       var amount = options.amount;
       return function () {
-        card.collection.croupier.drawCard(amount);
+        getCroupier(card).drawCard(amount);
+      };
+    },
+
+    damageEnemy: function (card, options) {
+      var amount = options.amount;
+      return function () {
+        var enemy = getEnemy(card);
+        enemy.croupier.bank.removeFunds(amount);
       };
     },
 

@@ -1,7 +1,7 @@
 define(['models/cards'], function (Cards) {
 
-  var mana = {
-    type: 'Mana',
+  var land = {
+    type: 'Land',
     cost: 0,
     effects: [
       {
@@ -24,12 +24,25 @@ define(['models/cards'], function (Cards) {
     ]
   };
 
+  var damager = {
+    type: 'Sorcery',
+    cost: 300,
+    effects: [
+      {
+        type: 'damageEnemy',
+        trigger: 'onCast',
+        amount: 400
+      }
+    ]
+  };
+
   var Deck = function () {
     var self = [];
     var i = 0
-    while (i < 15) {
-      self.push(new Cards.Card(mana));
+    while (i < 5) {
+      self.push(new Cards.Card(land));
       self.push(new Cards.Card(drawer));
+      self.push(new Cards.Card(damager));
       i += 1;
     }
     return self;

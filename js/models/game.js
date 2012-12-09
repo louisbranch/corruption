@@ -25,7 +25,7 @@ define(['backbone', 'models/battlefield'], function (Backbone, Battlefield) {
 
     nextTurn: function () {
       this.turns += 1;
-      this.currentPlayer = this.getOpponent(this.currentPlayer);
+      this.currentPlayer = this.getEnemy(this.currentPlayer);
     },
 
     getRandomPlayer: function () {
@@ -36,7 +36,7 @@ define(['backbone', 'models/battlefield'], function (Backbone, Battlefield) {
       }
     },
 
-    getOpponent: function (player) {
+    getEnemy: function (player) {
       if (player === this.player1) {
         return this.player2;
       } else {
