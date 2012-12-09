@@ -3,6 +3,7 @@ define(['backbone', 'models/card_types', 'models/effects'], function (Backbone, 
   var Card = Backbone.Model.extend({
 
     initialize: function (options) {
+      this.set('states', []);
       this.type = CardTypes(options.type);
       var effects = options.effects.concat(this.type.effects);
       this.setEffects(effects);
@@ -13,7 +14,8 @@ define(['backbone', 'models/card_types', 'models/effects'], function (Backbone, 
       var triggers = {
         onCast: [],
         afterCast: [],
-        eachTurn: []
+        eachTurn: [],
+        endTurn: []
       };
 
       effects.forEach(function (effect) {

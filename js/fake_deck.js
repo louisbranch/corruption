@@ -1,6 +1,7 @@
 define(['models/cards'], function (Cards) {
 
   var land = {
+    name: 'ANAC',
     type: 'Land',
     cost: 0,
     effects: [
@@ -13,18 +14,20 @@ define(['models/cards'], function (Cards) {
   };
 
   var drawer = {
+    name: 'Sessao Extraordinaria',
     type: 'Sorcery',
     cost: 200,
     effects: [
       {
         type: 'drawCard',
         trigger: 'onCast',
-        amount: 1
+        amount: 2
       }
     ]
   };
 
   var damager = {
+    name: 'Escandalo Midiatico',
     type: 'Sorcery',
     cost: 300,
     effects: [
@@ -36,6 +39,13 @@ define(['models/cards'], function (Cards) {
     ]
   };
 
+  var creature = {
+    name: 'Deputado',
+    type: 'Creature',
+    cost: 200,
+    effects: []
+  };
+
   var Deck = function () {
     var self = [];
     var i = 0
@@ -43,6 +53,7 @@ define(['models/cards'], function (Cards) {
       self.push(new Cards.Card(land));
       self.push(new Cards.Card(drawer));
       self.push(new Cards.Card(damager));
+      self.push(new Cards.Card(creature));
       i += 1;
     }
     return self;

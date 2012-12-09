@@ -36,6 +36,20 @@ define([], function () {
       return function () {
         card.destroy();
       };
+    },
+
+    summonSickness: function (card) {
+      // Add Sickness
+      var states = card.get('states')
+      states.push('sick');
+      card.set('states', states);
+
+      // Remove Sickness
+      return function () {
+        var i = states.indexOf('sick');
+        states.splice(i,1);
+        card.set('states', states);
+      }
     }
 
   }

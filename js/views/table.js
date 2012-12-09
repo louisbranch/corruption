@@ -4,6 +4,10 @@ define(['jquery', 'backbone', 'underscore', 'mustache', 'text!templates/hand.mus
     var View = Backbone.View.extend({
       tagName: 'li',
 
+      initialize: function () {
+        this.model.bind('destroy', this.remove, this);
+      },
+
       render: function () {
         $(this.el).html(Mustache.render(Template, this.model.toJSON()));
         return this;

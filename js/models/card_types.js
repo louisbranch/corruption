@@ -1,17 +1,35 @@
 define(function () {
 
+  var Creature = {
+    effects: [
+      {
+        type: 'summonSickness',
+        trigger: 'onCast'
+      },
+      {
+        type: 'summonSickness',
+        trigger: 'endTurn'
+      }
+    ]
+  };
+
+  var Land = {
+    effects: []
+  };
+
+  var Sorcery = {
+    effects: [
+      {
+        type: 'destroy',
+        trigger: 'afterCast'
+      }
+    ]
+  };
+
   var types = {
-    Land: {
-      effects: []
-    },
-    Sorcery: {
-      effects: [
-        {
-          type: 'destroy',
-          trigger: 'afterCast'
-        }
-      ]
-    }
+    Creature: Creature,
+    Land: Land,
+    Sorcery: Sorcery
   };
 
   var CardType = function (type) {
