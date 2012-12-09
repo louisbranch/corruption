@@ -23,7 +23,7 @@ define(['backbone'], function (Backbone) {
     },
 
     removeFunds: function (amount) {
-      var funds = this.get('funds')
+      var funds = this.get('funds');
       this.set('funds', funds - amount);
       if (this.get('funds') <= 0) {
         throw 'DEAD!'
