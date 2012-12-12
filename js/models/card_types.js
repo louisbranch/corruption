@@ -13,6 +13,10 @@ define(function () {
     ]
   };
 
+  var Enchantment = {
+    effects: []
+  };
+
   var Land = {
     effects: []
   };
@@ -28,6 +32,7 @@ define(function () {
 
   var types = {
     Creature: Creature,
+    Enchantment: Enchantment,
     Land: Land,
     Sorcery: Sorcery
   };
