@@ -6,6 +6,8 @@ define(['jquery', 'backbone', 'underscore', 'mustache', 'text!templates/hand.mus
 
       initialize: function () {
         this.model.bind('destroy', this.remove, this);
+        this.model.bind('tap', this.tap, this);
+        this.model.bind('untap', this.untap, this);
       },
 
       events: {
@@ -19,6 +21,14 @@ define(['jquery', 'backbone', 'underscore', 'mustache', 'text!templates/hand.mus
 
       attack: function () {
         this.model.attack();
+      },
+
+      tap: function () {
+        $(this.el).addClass('tap');
+      },
+
+      untap: function () {
+        $(this.el).removeClass('tap');
       }
 
     });

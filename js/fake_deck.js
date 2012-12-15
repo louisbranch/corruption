@@ -43,6 +43,8 @@ define(['models/cards'], function (Cards) {
     name: 'Deputado',
     type: 'Creature',
     cost: 200,
+    attack: 100,
+    defense: 200,
     effects: []
   };
 

@@ -1,4 +1,4 @@
-define([], function () {
+define(['underscore'], function (_) {
 
   var getCroupier = function (card) {
     return card.collection.croupier;
@@ -26,6 +26,9 @@ define([], function () {
 
     damageEnemy: function (card, options) {
       var amount = options.amount;
+      if (_.isFunction(options.amount)) {
+        amount = options.amount.apply(card);
+      }
       return function () {
         var enemy = getEnemy(card);
         enemy.croupier.bank.removeFunds(amount);

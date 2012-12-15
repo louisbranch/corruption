@@ -31,3 +31,8 @@ ul.hand, ul.table {
 .home-battlefield ul.table li {
   background-color: green;
 }
+
+.tap {
+  -webkit-transform: rotate(0.25turn);
+  margin-left: 20px;
+}

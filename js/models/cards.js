@@ -13,7 +13,9 @@ define(['backbone', 'models/card_types', 'models/effects'], function (Backbone, 
       var card = this;
       var triggers = {
         onCast: [],
+        onAttack: [],
         afterCast: [],
+        afterAttack: [],
         eachTurn: [],
         endTurn: []
       };
@@ -64,6 +66,9 @@ define(['backbone', 'models/card_types', 'models/effects'], function (Backbone, 
     },
 
     onAttack: function () {
+      this.get('onAttack').forEach(function (effect) {
+        effect();
+      });
     },
 
     eachTurn: function () {

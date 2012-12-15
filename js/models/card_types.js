@@ -9,6 +9,11 @@ define(function () {
       {
         type: 'summonSickness',
         trigger: 'endTurn'
+      },
+      {
+        type: 'damageEnemy',
+        trigger: 'onAttack',
+        amount: function () {return this.get('attack');}
       }
     ]
   };
