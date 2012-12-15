@@ -8,9 +8,17 @@ define(['jquery', 'backbone', 'underscore', 'mustache', 'text!templates/hand.mus
         this.model.bind('destroy', this.remove, this);
       },
 
+      events: {
+        'click' : 'attack'
+      },
+
       render: function () {
         $(this.el).html(Mustache.render(Template, this.model.toJSON()));
         return this;
+      },
+
+      attack: function () {
+        this.model.attack();
       }
 
     });

@@ -1,4 +1,4 @@
-define(['backbone', 'models/bank', 'models/cards'], function (Backbone, Bank, Cards) {
+define(['backbone', 'models/bank', 'models/cards', 'config'], function (Backbone, Bank, Cards, Config) {
 
   var Croupier = Backbone.Model.extend({
 
@@ -15,7 +15,7 @@ define(['backbone', 'models/bank', 'models/cards'], function (Backbone, Bank, Ca
     },
 
     drawInitialHand: function () {
-      this.library.draw(5, this.hand);
+      this.library.draw(Config.initialHandCards, this.hand);
     },
 
     drawCard: function (n) {

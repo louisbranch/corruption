@@ -30,10 +30,25 @@ define(['backbone', 'models/card_types', 'models/effects'], function (Backbone, 
       }
     },
 
+    tap: function () {
+      this.trigger('tap');
+    },
+
+    untap: function () {
+      this.trigger('untap');
+    },
+
     cast: function () {
       this.collection.croupier.castCard(this);
       this.onCast();
       this.afterCast();
+    },
+
+    attack: function () {
+      if (this.get('attack')) {
+        this.tap();
+        this.onAttack();
+      }
     },
 
     onCast: function () {
@@ -46,6 +61,9 @@ define(['backbone', 'models/card_types', 'models/effects'], function (Backbone, 
       this.get('afterCast').forEach(function (effect) {
         effect();
       });
+    },
+
+    onAttack: function () {
     },
 
     eachTurn: function () {

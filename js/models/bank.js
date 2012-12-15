@@ -1,10 +1,10 @@
-define(['backbone'], function (Backbone) {
+define(['backbone', 'config'], function (Backbone, Config) {
 
   var Bank = Backbone.Model.extend({
 
     initialize: function (player) {
       this.player = player;
-      this.set('funds', 1000);
+      this.set('funds', Config.startingFunds);
     },
 
     payCost: function (amount) {
