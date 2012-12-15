@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'text!templates/croupier.mustache', 'views/player', 'views/library', 'views/hand', 'views/table', 'views/display'],
-function ($, Backbone, Template, Player, Library, Hand, Table, Display) {
+define(['jquery', 'backbone', 'text!templates/croupier.mustache', 'views/player', 'views/library', 'views/hand', 'views/table', 'views/display', 'views/turn_manager'],
+function ($, Backbone, Template, Player, Library, Hand, Table, Display, TurnManager) {
 
   var View = Backbone.View.extend({
     className: 'croupier',
@@ -16,6 +16,7 @@ function ($, Backbone, Template, Player, Library, Hand, Table, Display) {
       this.renderLibrary();
       this.renderHand();
       this.renderTable();
+      this.renderTurnManager();
     },
 
     renderLibrary: function () {
@@ -44,6 +45,11 @@ function ($, Backbone, Template, Player, Library, Hand, Table, Display) {
     renderPlayer: function () {
       var playerView = new Player({model: this.model.player});
       $(this.el).find('.player').replaceWith(playerView.render().el);
+    },
+
+    renderTurnManager: function () {
+      var turnView = new TurnManager({model: this.model});
+      $(this.el).find('.turn-manager').replaceWith(turnView.render().el);
     }
 
   });

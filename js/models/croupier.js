@@ -25,13 +25,25 @@ define(['backbone', 'models/bank', 'models/cards', 'config'], function (Backbone
 
     castCard: function (card) {
       if ( !this.hand.include(card) ) {
-        throw 'Card must be in your hand'
+        throw 'Card must be in your hand';
       }
       if ( !this.bank.payCost(card.get('cost')) ) {
-        throw 'Not enough funds'
+        throw 'Not enough funds';
       }
       this.hand.remove(card);
       this.table.add(card);
+    },
+
+    startAttachPhase: function () {
+      console.log('attacking');
+    },
+
+    endTurn: function () {
+      if (this.player.game.isPlayerTurn(this.player)) {
+        this.player.game.nextTurn();
+      } else {
+        throw 'It is not your turn';
+      }
     }
 
   })

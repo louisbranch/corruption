@@ -42,6 +42,10 @@ define(['backbone', 'models/battlefield'], function (Backbone, Battlefield) {
       } else {
         return this.player1;
       }
+    },
+
+    isPlayerTurn: function (player) {
+      return player === this.currentPlayer;
     }
 
   });
