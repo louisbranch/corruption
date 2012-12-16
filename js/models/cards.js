@@ -108,7 +108,13 @@ define(['backbone', 'models/card_types', 'models/effects'], function (Backbone, 
   });
 
   var Hand = Cards.extend({});
-  var Table = Cards.extend({});
+  var Table = Cards.extend({
+    untapAll: function () {
+      this.models.forEach(function (card) {
+        card.untap();
+      });
+    }
+  });
   var Graveyard = Cards.extend({});
 
   return {

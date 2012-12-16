@@ -14,6 +14,11 @@ define(['backbone', 'models/bank', 'models/cards', 'config'], function (Backbone
       this.graveyard = new Cards.Graveyard([],this);
     },
 
+    newTurn: function () {
+      this.table.untapAll();
+      this.drawCard();
+    },
+
     drawInitialHand: function () {
       this.library.draw(Config.initialHandCards, this.hand);
     },

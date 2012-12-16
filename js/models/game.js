@@ -26,6 +26,7 @@ define(['backbone', 'models/battlefield'], function (Backbone, Battlefield) {
     nextTurn: function () {
       this.turns += 1;
       this.currentPlayer = this.getEnemy(this.currentPlayer);
+      this.currentPlayer.croupier.newTurn();
     },
 
     getRandomPlayer: function () {
