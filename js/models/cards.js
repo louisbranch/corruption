@@ -47,10 +47,10 @@ define(['backbone', 'models/card_types', 'models/effects'], function (Backbone, 
     },
 
     attack: function () {
-      if (this.get('attack')) {
-        this.tap();
-        this.onAttack();
-      }
+      if (this.get('attack') === undefined) { throw 'This card cant attack'; }
+      if (this.isSick()) { throw 'A card cant attack in the 1st turn'}
+      this.tap();
+      this.onAttack();
     },
 
     onCast: function () {
@@ -75,6 +75,16 @@ define(['backbone', 'models/card_types', 'models/effects'], function (Backbone, 
       this.get('eachTurn').forEach(function (effect) {
         effect();
       });
+    },
+
+    endTurn: function () {
+      this.get('endTurn').forEach(function (effect) {
+        effect();
+      });
+    },
+
+    isSick: function () {
+      return this.get('states').indexOf('sick') !== -1;
     }
 
   });
@@ -112,6 +122,11 @@ define(['backbone', 'models/card_types', 'models/effects'], function (Backbone, 
     untapAll: function () {
       this.models.forEach(function (card) {
         card.untap();
+      });
+    },
+    endTurn: function () {
+      this.models.forEach(function (card) {
+        card.endTurn();
       });
     }
   });

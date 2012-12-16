@@ -45,6 +45,7 @@ define(['backbone', 'models/bank', 'models/cards', 'config'], function (Backbone
 
     endTurn: function () {
       if (this.player.game.isPlayerTurn(this.player)) {
+        this.table.endTurn();
         this.player.game.nextTurn();
       } else {
         throw 'It is not your turn';

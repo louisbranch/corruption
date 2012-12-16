@@ -7,7 +7,7 @@ define(function () {
         trigger: 'onCast'
       },
       {
-        type: 'summonSickness',
+        type: 'removeSickness',
         trigger: 'endTurn'
       },
       {
