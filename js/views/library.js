@@ -9,10 +9,6 @@ define(['jquery', 'backbone', 'mustache', 'text!templates/library.mustache'],
         this.collection.bind('change', this.reRender, this);
       },
 
-      events: {
-        'click' : 'drawCard'
-      },
-
       render: function () {
         $(this.el).html(Template);
         return this;
@@ -20,10 +16,6 @@ define(['jquery', 'backbone', 'mustache', 'text!templates/library.mustache'],
 
       reRender: function () {
         $(this.el).replaceWith(this.render().el);
-      },
-
-      drawCard: function () {
-        this.collection.croupier.drawCard();
       }
 
     });
