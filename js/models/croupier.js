@@ -5,6 +5,7 @@ define(['backbone', 'models/bank', 'models/cards', 'config'], function (Backbone
     initialize: function (player) {
       this.player = player;
       this.bank = new Bank(this);
+      this.attackQueue = [];
     },
 
     setDeck: function (cards) {
@@ -36,7 +37,7 @@ define(['backbone', 'models/bank', 'models/cards', 'config'], function (Backbone
       this.table.add(card);
     },
 
-    startAttachPhase: function () {
+    startAttackPhase: function () {
       console.log('attacking');
     },
 
@@ -51,6 +52,20 @@ define(['backbone', 'models/bank', 'models/cards', 'config'], function (Backbone
 
     isHisTurn: function () {
       return this.player.game.isPlayerTurn(this.player);
+    },
+
+    addToAttackQueue: function (card) {
+      var index = this.attackQueue.indexOf(card);
+      if (index === -1) {
+        this.attackQueue.push(card);
+      }
+    },
+
+    removeFromAttackQueue: function (card) {
+      var index = this.attackQueue.indexOf(card);
+      if (index >= 0) {
+        this.attackQueue.splice(index, 1);
+      }
     }
 
   })
