@@ -10,7 +10,7 @@ define(['jquery', 'backbone', 'text!templates/battlefield.mustache', 'views/crou
       },
 
       render: function () {
-        $(this.el).html(Template);
+        this.$el.html(Template);
         this.renderCroupiers();
         return this;
       },
@@ -19,8 +19,8 @@ define(['jquery', 'backbone', 'text!templates/battlefield.mustache', 'views/crou
         var visitorView = new Croupier({model: this.player1.croupier});
         var homeView = new Croupier({model: this.player2.croupier});
 
-        $(this.el).find('.visitor-battlefield').html(visitorView.render().el);
-        $(this.el).find('.home-battlefield').html(homeView.render().el);
+        this.$el.find('.visitor-battlefield').html(visitorView.render().el);
+        this.$el.find('.home-battlefield').html(homeView.render().el);
       }
 
     });

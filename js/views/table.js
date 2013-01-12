@@ -15,7 +15,7 @@ define(['jquery', 'backbone', 'underscore', 'mustache', 'text!templates/table.mu
       },
 
       render: function () {
-        $(this.el).html(Mustache.render(Template, this.model.toJSON()));
+        this.$el.html(Mustache.render(Template, this.model.toJSON()));
         return this;
       },
 
@@ -24,11 +24,11 @@ define(['jquery', 'backbone', 'underscore', 'mustache', 'text!templates/table.mu
       },
 
       tap: function () {
-        $(this.el).addClass('tap');
+        this.$el.addClass('tap');
       },
 
       untap: function () {
-        $(this.el).removeClass('tap');
+        this.$el.removeClass('tap');
       }
 
     });
@@ -42,7 +42,7 @@ define(['jquery', 'backbone', 'underscore', 'mustache', 'text!templates/table.mu
 
       render: function () {
         var template = Mustache.render(TableTemplate);
-        $(this.el).html(template);
+        this.$el.html(template);
         return this;
       },
 

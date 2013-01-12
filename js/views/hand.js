@@ -13,7 +13,7 @@ define(['jquery', 'backbone', 'underscore', 'mustache', 'text!templates/hand.mus
       },
 
       render: function () {
-        $(this.el).html(Mustache.render(Template, this.model.toJSON()));
+        this.$el.html(Mustache.render(Template, this.model.toJSON()));
         return this;
       },
 
@@ -38,13 +38,13 @@ define(['jquery', 'backbone', 'underscore', 'mustache', 'text!templates/hand.mus
           var view = new View({model: card});
           list.appendChild(view.render().el);
         });
-        $(this.el).append(list);
+        this.$el.append(list);
         return this;
       },
 
       add: function (card) {
         var view = new View({model: card});
-        $(this.el).append(view.render().el);
+        this.$el.append(view.render().el);
       },
 
       remove: function (card) {

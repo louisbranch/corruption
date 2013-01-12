@@ -7,14 +7,14 @@ function ($, Backbone, Mustache, Template, Bank) {
 
     render: function () {
       var template = Mustache.render(Template, this.model.toJSON());
-      $(this.el).html(template);
+      this.$el.html(template);
       this.renderBank();
       return this;
     },
 
     renderBank: function () {
       var bankView = new Bank({model: this.model.croupier.bank});
-      $(this.el).find('.bank').replaceWith(bankView.render().el);
+      this.$el.find('.bank').replaceWith(bankView.render().el);
     }
 
   });

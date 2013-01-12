@@ -10,12 +10,12 @@ define(['jquery', 'backbone', 'mustache', 'text!templates/library.mustache'],
       },
 
       render: function () {
-        $(this.el).html(Template);
+        this.$el.html(Template);
         return this;
       },
 
       reRender: function () {
-        $(this.el).replaceWith(this.render().el);
+        this.$el.replaceWith(this.render().el);
       }
 
     });

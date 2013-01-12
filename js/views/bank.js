@@ -9,7 +9,7 @@ define(['jquery', 'backbone', 'mustache', 'text!templates/bank.mustache'], funct
 
     render: function () {
       var template = Mustache.render(Template, this.model.toJSON());
-      $(this.el).html(template);
+      this.$el.html(template);
       return this;
     }
   });

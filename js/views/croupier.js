@@ -5,7 +5,7 @@ function ($, Backbone, Template, Player, Library, Hand, Table, Display, TurnMana
     className: 'croupier',
 
     render: function () {
-      $(this.el).html(Template);
+      this.$el.html(Template);
       this.renderSubViews();
       return this;
     },
@@ -21,17 +21,17 @@ function ($, Backbone, Template, Player, Library, Hand, Table, Display, TurnMana
 
     renderLibrary: function () {
       var libraryView = new Library({collection: this.model.library});
-      $(this.el).find('.library').replaceWith(libraryView.render().el);
+      this.$el.find('.library').replaceWith(libraryView.render().el);
     },
 
     renderHand: function () {
       var handView = new Hand({collection: this.model.hand});
-      $(this.el).find('.hand').replaceWith(handView.render().el);
+      this.$el.find('.hand').replaceWith(handView.render().el);
     },
 
     renderTable: function () {
       var tableView = new Table({collection: this.model.table});
-      $(this.el).find('.table').replaceWith(tableView.render().el);
+      this.$el.find('.table').replaceWith(tableView.render().el);
     },
 
     renderDisplay: function () {
@@ -39,17 +39,17 @@ function ($, Backbone, Template, Player, Library, Hand, Table, Display, TurnMana
         { library: this.model.library,
           hand: this.model.hand }
       );
-      $(this.el).find('.display').replaceWith(displayView.render().el);
+      this.$el.find('.display').replaceWith(displayView.render().el);
     },
 
     renderPlayer: function () {
       var playerView = new Player({model: this.model.player});
-      $(this.el).find('.player').replaceWith(playerView.render().el);
+      this.$el.find('.player').replaceWith(playerView.render().el);
     },
 
     renderTurnManager: function () {
       var turnView = new TurnManager({model: this.model});
-      $(this.el).find('.turn-manager').replaceWith(turnView.render().el);
+      this.$el.find('.turn-manager').replaceWith(turnView.render().el);
     }
 
   });

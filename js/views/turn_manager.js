@@ -10,7 +10,7 @@ function ($, _, Backbone, Mustache, Template) {
 
     render: function () {
       var template = Mustache.render(Template);
-      $(this.el).html(template);
+      this.$el.html(template);
       return this;
     },
 

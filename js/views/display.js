@@ -14,7 +14,7 @@ define(['jquery', 'backbone', 'mustache', 'text!templates/display.mustache'], fu
         library: this.library.length,
         hand: this.hand.length}
       );
-      $(this.el).html(template);
+      this.$el.html(template);
       return this;
     },
 
