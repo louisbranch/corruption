@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'underscore', 'mustache', 'text!templates/hand.mustache'],
-  function ($, Backbone, _, Mustache, Template) {
+define(['jquery', 'backbone', 'underscore', 'mustache', 'text!templates/table.mustache', 'text!templates/hand.mustache'],
+  function ($, Backbone, _, Mustache, TableTemplate, Template) {
 
     var View = Backbone.View.extend({
       tagName: 'li',
@@ -34,7 +34,6 @@ define(['jquery', 'backbone', 'underscore', 'mustache', 'text!templates/hand.mus
     });
 
     var Collection = Backbone.View.extend({
-      tagName: 'ul',
       className: 'table',
 
       initialize: function () {
@@ -42,18 +41,20 @@ define(['jquery', 'backbone', 'underscore', 'mustache', 'text!templates/hand.mus
       },
 
       render: function () {
-        var list = document.createDocumentFragment();
-        _.each(this.collection.models, function (card){
-          var view = new View({model: card});
-          list.appendChild(view.render().el);
-        });
-        $(this.el).append(list);
+        var template = Mustache.render(TableTemplate);
+        $(this.el).html(template);
         return this;
       },
 
       add: function (card) {
         var view = new View({model: card});
-        $(this.el).append(view.render().el);
+        $list = this.findCardList(card);
+        $list.append(view.render().el);
+      },
+
+      findCardList: function (card) {
+        var name = card.type.name;
+        return this.$el.find('ul.table-' + name);
       }
 
     });

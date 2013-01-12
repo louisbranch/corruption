@@ -2,11 +2,11 @@
   clear: both;
 }
 
-ul.hand, ul.table {
+.table ul, .hand {
   overflow: hidden;
 }
 
-.full-deck, ul.hand li, ul.table li {
+.full-deck, .hand li, .table li {
   float: left;
   margin: 10px;
   width: 140px;
@@ -18,17 +18,19 @@ ul.hand, ul.table {
   overflow: hidden;
 }
 
-.visitor-battlefield ul.hand li {
-  background-color: red;
-}
-.home-battlefield ul.hand li {
+.hand li {
   background-color: blue;
 }
 
-.visitor-battlefield ul.table li {
+.table-land li {
   background-color: purple;
 }
-.home-battlefield ul.table li {
+
+.table-creature li {
+  background-color: red;
+}
+
+.table-enchantment li {
   background-color: green;
 }
 

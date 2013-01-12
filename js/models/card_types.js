@@ -1,6 +1,7 @@
 define(function () {
 
   var Creature = {
+    name: 'creature',
     effects: [
       {
         type: 'summonSickness',
@@ -19,14 +20,17 @@ define(function () {
   };
 
   var Enchantment = {
+    name: 'enchantment',
     effects: []
   };
 
   var Land = {
+    name: 'land',
     effects: []
   };
 
   var Sorcery = {
+    name: 'sorcery',
     effects: [
       {
         type: 'destroy',
