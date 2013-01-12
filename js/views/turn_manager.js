@@ -15,7 +15,7 @@ function ($, _, Backbone, Mustache, Template) {
     },
 
     attackPhase: function () {
-      this.model.startAttachPhase();
+      this.model.attack();
     },
 
     endTurn: function () {

@@ -37,10 +37,6 @@ define(['underscore', 'backbone', 'models/bank', 'models/cards', 'config'], func
       this.table.add(card);
     },
 
-    startAttackPhase: function () {
-      console.log('attacking');
-    },
-
     endTurn: function () {
       if (this.isHisTurn()) {
         this.table.endTurn();
@@ -55,9 +51,13 @@ define(['underscore', 'backbone', 'models/bank', 'models/cards', 'config'], func
     },
 
     attack: function () {
-      _.forEach(this.attackQueue, function (card) {
-        card.onAttack();
-      });
+      if (this.attackQueue.length) {
+        _.forEach(this.attackQueue, function (card) {
+          card.onAttack();
+        });
+      } else {
+        throw 'No cards selected to attack'
+      }
     },
 
     addToAttackQueue: function (card) {

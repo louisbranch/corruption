@@ -112,23 +112,29 @@ define(['backbone', 'models/card_types', 'models/effects'], function (Backbone, 
         hand.add(this.shift());
         n -= 1;
       }
-
     }
-
   });
 
   var Hand = Cards.extend({});
+
   var Table = Cards.extend({
+
     untapAll: function () {
       this.models.forEach(function (card) {
         card.untap();
       });
     },
+
     endTurn: function () {
       this.models.forEach(function (card) {
         card.endTurn();
       });
+    },
+
+    attack: function () {
+      this.croupier.attack();
     }
+
   });
   var Graveyard = Cards.extend({});
 
