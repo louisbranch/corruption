@@ -1,4 +1,4 @@
-define(['backbone', 'models/bank', 'models/cards', 'config'], function (Backbone, Bank, Cards, Config) {
+define(['underscore', 'backbone', 'models/bank', 'models/cards', 'config'], function (_, Backbone, Bank, Cards, Config) {
 
   var Croupier = Backbone.Model.extend({
 
@@ -52,6 +52,12 @@ define(['backbone', 'models/bank', 'models/cards', 'config'], function (Backbone
 
     isHisTurn: function () {
       return this.player.game.isPlayerTurn(this.player);
+    },
+
+    attack: function () {
+      _.forEach(this.attackQueue, function (card) {
+        card.onAttack();
+      });
     },
 
     addToAttackQueue: function (card) {

@@ -50,7 +50,7 @@ define(['backbone', 'models/card_types', 'models/effects'], function (Backbone, 
       if (this.get('attack') === undefined) { throw 'This card cant attack'; }
       if (this.isSick()) { throw 'A card cant attack in the 1st turn'}
       this.tap();
-      this.onAttack();
+      this.collection.croupier.addToAttackQueue(this);
     },
 
     onCast: function () {

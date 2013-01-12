@@ -1,6 +1,6 @@
 define(['/js/models/croupier.js'], function (Croupier) {
 
-  module('Attack queue', {
+  module('Croupier - Attack queue', {
     setup: function () {
       this.card = {id: 1};
       this.card2 = {id: 2};
@@ -30,6 +30,19 @@ define(['/js/models/croupier.js'], function (Croupier) {
     this.croupier.addToAttackQueue(this.card2);
     this.croupier.removeFromAttackQueue(this.card);
     deepEqual(this.croupier.attackQueue, [this.card2]);
+  });
+
+  test('Attack with cards in queue',  function () {
+    expect(2);
+    var onAttack = function () {ok(true)};
+
+    this.croupier.addToAttackQueue(this.card);
+    this.croupier.addToAttackQueue(this.card2);
+
+    this.card.onAttack = onAttack;
+    this.card2.onAttack = onAttack;
+
+    this.croupier.attack();
   });
 
 });
