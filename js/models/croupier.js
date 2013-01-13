@@ -42,7 +42,7 @@ define(['underscore', 'backbone', 'models/bank', 'models/cards', 'config'], func
       if (!this.hand.include(card)) { throw 'Card must be in your hand'; }
       if (!this.bank.payCost(card.get('cost'))) { throw 'Not enough funds'; }
       if (!this.isHisTurn()) { throw 'It is not your turn yet'; }
-      if (!this.isPhase('main-1', 'main-2')) { throw 'You cant cast a card during this phase.'}
+      if (!this.isPhase('main-1', 'main-2')) { throw 'You cant cast a card during this phase.' }
       this.hand.remove(card);
       this.table.add(card);
     },
@@ -65,16 +65,19 @@ define(['underscore', 'backbone', 'models/bank', 'models/cards', 'config'], func
     },
 
     attack: function () {
-      if (!this.isPhase('main-1')) { throw 'You cant attack during this phase' }
+      if (!this.isHisTurn()) { throw 'It is not your turn'; }
+      if (!this.isPhase('combat')) { throw 'You cant attack during this phase' }
       if (!this.attackQueue.length) { throw 'No cards selected to attack' }
-      this.set('phase', 'combat');
       _.forEach(this.attackQueue, function (card) {
         card.onAttack();
       });
+      this.attackQueue = [];
       this.set('phase', 'main-2');
     },
 
     addToAttackQueue: function (card) {
+      if (!this.isHisTurn()) { throw 'It is not your turn'; }
+      if (!this.isPhase('combat')) { throw 'You cant attack during this phase' }
       var index = this.attackQueue.indexOf(card);
       if (index === -1) {
         this.attackQueue.push(card);

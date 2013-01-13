@@ -3,15 +3,18 @@ define(['/js/models/croupier.js'], function (Croupier) {
   module('Croupier - Attack queue', {
     setup: function () {
       this.croupier = new Croupier();
-      this.croupier.set('phase', 'main-1');
+      this.croupier.isHisTurn = function () {return true};
+      this.croupier.set('phase', 'combat');
       this.card = {id: 1};
       this.card2 = {id: 2};
     }
   });
 
-  test('Phase must be main-1', function () {
-    this.croupier.set('phase', 'combat');
-    throws(this.croupier.addToAttackQueue(this.card));
+  test('Phase must be combat', function () {
+    this.croupier.set('phase', 'main-1');
+    raises(function () {
+      this.croupier.addToAttackQueue(this.card)
+    });
   });
 
   test('Add one card', function () {
@@ -41,7 +44,8 @@ define(['/js/models/croupier.js'], function (Croupier) {
   module('Croupier - Attack', {
     setup: function () {
       this.croupier = new Croupier();
-      this.croupier.set('phase', 'main-1');
+      this.croupier.isHisTurn = function () {return true};
+      this.croupier.set('phase', 'combat');
       this.card = {id: 1};
       this.card2 = {id: 2};
       this.croupier.addToAttackQueue(this.card);
@@ -58,8 +62,6 @@ define(['/js/models/croupier.js'], function (Croupier) {
 
     this.croupier.attack();
   });
-
-  // test('Change phase to combat during attack', function () {});
 
   test('Change phase to main-2 after attack', function () {
     var onAttack = function () {};
