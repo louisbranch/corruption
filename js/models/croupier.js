@@ -1,6 +1,6 @@
 define(['underscore', 'backbone', 'models/bank', 'models/cards', 'config'], function (_, Backbone, Bank, Cards, Config) {
 
-  // PHASES = ['beginning', 'main-1', 'combat', 'main-2', 'ending'];
+  PHASES = ['beginning', 'main-1', 'combat', 'main-2', 'ending'];
 
   var Croupier = Backbone.Model.extend({
 
@@ -23,10 +23,17 @@ define(['underscore', 'backbone', 'models/bank', 'models/cards', 'config'], func
     },
 
     newTurn: function () {
-      this.set('phase', 'beginning');
+      this.set('phase', PHASES[0]);
       this.table.untapAll();
       this.drawCard();
-      this.set('phase', 'main-1');
+      this.set('phase', PHASES[1]);
+    },
+
+    nextPhase: function () {
+      this.verify({turn: true, phase: ['main-1', 'combat', 'main-2']});
+      var currentPhase = this.get('phase');
+      var nextPhase = PHASES[PHASES.indexOf(currentPhase) + 1];
+      this.set('phase', nextPhase);
     },
 
     drawInitialHand: function () {
@@ -48,7 +55,7 @@ define(['underscore', 'backbone', 'models/bank', 'models/cards', 'config'], func
 
     endTurn: function () {
       this.verify({turn: true});
-      this.set('phase', 'ending');
+      this.set('phase', PHASES[4]);
       this.set('phase', null);
       this.table.endTurn();
       this.player.game.nextTurn();
@@ -74,7 +81,7 @@ define(['underscore', 'backbone', 'models/bank', 'models/cards', 'config'], func
         card.onAttack();
       });
       this.attackQueue = [];
-      this.set('phase', 'main-2');
+      this.set('phase', PHASES[3]);
     },
 
     addToAttackQueue: function (card) {
@@ -82,6 +89,7 @@ define(['underscore', 'backbone', 'models/bank', 'models/cards', 'config'], func
       var index = this.attackQueue.indexOf(card);
       if (index === -1) {
         this.attackQueue.push(card);
+        this.trigger('change');
         return true;
       }
     },
@@ -90,15 +98,18 @@ define(['underscore', 'backbone', 'models/bank', 'models/cards', 'config'], func
       var index = this.attackQueue.indexOf(card);
       if (index >= 0) {
         this.attackQueue.splice(index, 1);
+        this.trigger('change');
       }
     },
 
     verify: function (conditions) {
+
       if (conditions.turn) {
         if (this.isMyTurn() !== conditions.turn) {
           throw new Error('Invalid turn action');
         }
       }
+
       if (conditions.phase) {
         if (!this.isPhase(conditions.phase)) {
           throw new Error('Invalid phase action');

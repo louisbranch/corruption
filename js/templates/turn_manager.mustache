@@ -1,5 +1,15 @@
 <ul>
-  <li><button class='attack-phase'>Attack</button></li>
-  <li><button class='end-turn'>End Turn</button></li>
+  {{#phase}}
+    <h5>{{phase}}</h5>
+  {{/phase}}
+  {{#nextPhase}}
+    <li><button class='next-phase'>Next Phase</button></li>
+  {{/nextPhase}}
+  {{#combatPhase}}
+    <li><button class='combat-phase'>Attack!</button></li>
+  {{/combatPhase}}
+  {{#endTurn}}
+    <li><button class='end-turn'>End Turn</button></li>
+  {{/endTurn}}
 </ul>
 
