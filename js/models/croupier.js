@@ -39,34 +39,36 @@ define(['underscore', 'backbone', 'models/bank', 'models/cards', 'config'], func
     },
 
     castCard: function (card) {
+      this.verify({turn: true, phase: ['main-1', 'main-2']});
       if (!this.hand.include(card)) { throw 'Card must be in your hand'; }
       if (!this.bank.payCost(card.get('cost'))) { throw 'Not enough funds'; }
-      if (!this.isHisTurn()) { throw 'It is not your turn yet'; }
-      if (!this.isPhase('main-1', 'main-2')) { throw 'You cant cast a card during this phase.' }
       this.hand.remove(card);
       this.table.add(card);
     },
 
     endTurn: function () {
-      if (!this.isHisTurn()) { throw 'It is not your turn'; }
+      this.verify({turn: true});
       this.set('phase', 'ending');
       this.set('phase', null);
       this.table.endTurn();
       this.player.game.nextTurn();
     },
 
-    isHisTurn: function () {
+    isMyTurn: function () {
       return this.player.game.isPlayerTurn(this.player);
     },
 
-    isPhase: function (/*phases*/) {
-      var phases = _.toArray(arguments);
-      return _.contains(phases, this.get('phase'));
+    isPhase: function (phases) {
+      var phase = this.get('phase');
+      if (_.isArray(phases)) {
+        return _.contains(phases, phase);
+      } else {
+        return phases === phase;
+      }
     },
 
     attack: function () {
-      if (!this.isHisTurn()) { throw 'It is not your turn'; }
-      if (!this.isPhase('combat')) { throw 'You cant attack during this phase' }
+      this.verify({turn: true, phase: 'combat'});
       if (!this.attackQueue.length) { throw 'No cards selected to attack' }
       _.forEach(this.attackQueue, function (card) {
         card.onAttack();
@@ -76,11 +78,11 @@ define(['underscore', 'backbone', 'models/bank', 'models/cards', 'config'], func
     },
 
     addToAttackQueue: function (card) {
-      if (!this.isHisTurn()) { throw 'It is not your turn'; }
-      if (!this.isPhase('combat')) { throw 'You cant attack during this phase' }
+      this.verify({turn: true, phase: 'combat'});
       var index = this.attackQueue.indexOf(card);
       if (index === -1) {
         this.attackQueue.push(card);
+        return true;
       }
     },
 
@@ -88,6 +90,19 @@ define(['underscore', 'backbone', 'models/bank', 'models/cards', 'config'], func
       var index = this.attackQueue.indexOf(card);
       if (index >= 0) {
         this.attackQueue.splice(index, 1);
+      }
+    },
+
+    verify: function (conditions) {
+      if (conditions.turn) {
+        if (this.isMyTurn() !== conditions.turn) {
+          throw new Error('Invalid turn action');
+        }
+      }
+      if (conditions.phase) {
+        if (!this.isPhase(conditions.phase)) {
+          throw new Error('Invalid phase action');
+        }
       }
     }
 

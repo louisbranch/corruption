@@ -3,7 +3,7 @@ define(['/js/models/croupier.js'], function (Croupier) {
   module('Croupier - Attack queue', {
     setup: function () {
       this.croupier = new Croupier();
-      this.croupier.isHisTurn = function () {return true};
+      this.croupier.isMyTurn = function () {return true};
       this.croupier.set('phase', 'combat');
       this.card = {id: 1};
       this.card2 = {id: 2};
@@ -44,7 +44,7 @@ define(['/js/models/croupier.js'], function (Croupier) {
   module('Croupier - Attack', {
     setup: function () {
       this.croupier = new Croupier();
-      this.croupier.isHisTurn = function () {return true};
+      this.croupier.isMyTurn = function () {return true};
       this.croupier.set('phase', 'combat');
       this.card = {id: 1};
       this.card2 = {id: 2};
@@ -87,7 +87,7 @@ define(['/js/models/croupier.js'], function (Croupier) {
 
   test('Verify multiple phases', function () {
     this.croupier.set('phase', 'main-2');
-    ok(this.croupier.isPhase('main-1', 'main-2'));
+    ok(this.croupier.isPhase(['main-1', 'main-2']));
   });
 
 });
