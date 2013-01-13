@@ -18,6 +18,10 @@ define(['underscore', 'backbone', 'models/bank', 'models/cards', 'config'], func
       this.graveyard = new Cards.Graveyard([],this);
     },
 
+    start: function () {
+      this.set('phase', 'main-1');
+    },
+
     newTurn: function () {
       this.set('phase', 'beginning');
       this.table.untapAll();
