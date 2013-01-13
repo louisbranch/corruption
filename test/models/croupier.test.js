@@ -2,9 +2,9 @@ define(['/js/models/croupier.js'], function (Croupier) {
 
   module('Croupier - Attack queue', {
     setup: function () {
+      this.croupier = new Croupier();
       this.card = {id: 1};
       this.card2 = {id: 2};
-      this.croupier = new Croupier();
     }
   });
 
@@ -43,6 +43,23 @@ define(['/js/models/croupier.js'], function (Croupier) {
     this.card2.onAttack = onAttack;
 
     this.croupier.attack();
+  });
+
+  module('Croupier - Is Phase', {
+    setup: function () {
+      this.croupier = new Croupier();
+    }
+  });
+
+  test('Verify a single phase', function () {
+    this.croupier.set('phase', 'beginning');
+    ok(this.croupier.isPhase('beginning'));
+    ok(!this.croupier.isPhase('main1'));
+  });
+
+  test('Verify multiple phases', function () {
+    this.croupier.set('phase', 'main-2');
+    ok(this.croupier.isPhase('main-1', 'main-2'));
   });
 
 });

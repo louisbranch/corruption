@@ -1,11 +1,14 @@
 define(['underscore', 'backbone', 'models/bank', 'models/cards', 'config'], function (_, Backbone, Bank, Cards, Config) {
 
+  // PHASES = ['beginning', 'main-1', 'combat', 'main-2', 'ending'];
+
   var Croupier = Backbone.Model.extend({
 
     initialize: function (player) {
       this.player = player;
       this.bank = new Bank(this);
       this.attackQueue = [];
+      this.set('phase', null, {silent: true});
     },
 
     setDeck: function (cards) {
@@ -16,8 +19,10 @@ define(['underscore', 'backbone', 'models/bank', 'models/cards', 'config'], func
     },
 
     newTurn: function () {
+      this.set('phase', 'beginning');
       this.table.untapAll();
       this.drawCard();
+      this.set('phase', 'main-1');
     },
 
     drawInitialHand: function () {
@@ -33,6 +38,7 @@ define(['underscore', 'backbone', 'models/bank', 'models/cards', 'config'], func
       if (!this.hand.include(card)) { throw 'Card must be in your hand'; }
       if (!this.bank.payCost(card.get('cost'))) { throw 'Not enough funds'; }
       if (!this.isHisTurn()) { throw 'It is not your turn yet'; }
+      if (!this.isPhase('main-1', 'main-2')) { throw 'You cant cast a card during this phase.'}
       this.hand.remove(card);
       this.table.add(card);
     },
@@ -48,6 +54,12 @@ define(['underscore', 'backbone', 'models/bank', 'models/cards', 'config'], func
 
     isHisTurn: function () {
       return this.player.game.isPlayerTurn(this.player);
+    },
+
+    isPhase: function (/*phases*/) {
+      var phase = this.get('phase');
+      var values = Array.prototype.slice.apply(arguments);
+      return _.contains(values, phase);
     },
 
     attack: function () {
