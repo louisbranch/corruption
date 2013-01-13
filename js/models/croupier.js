@@ -44,12 +44,11 @@ define(['underscore', 'backbone', 'models/bank', 'models/cards', 'config'], func
     },
 
     endTurn: function () {
-      if (this.isHisTurn()) {
-        this.table.endTurn();
-        this.player.game.nextTurn();
-      } else {
-        throw 'It is not your turn';
-      }
+      if (!this.isHisTurn()) { throw 'It is not your turn'; }
+      this.set('phase', 'ending');
+      this.set('phase', null);
+      this.table.endTurn();
+      this.player.game.nextTurn();
     },
 
     isHisTurn: function () {
@@ -57,19 +56,18 @@ define(['underscore', 'backbone', 'models/bank', 'models/cards', 'config'], func
     },
 
     isPhase: function (/*phases*/) {
-      var phase = this.get('phase');
-      var values = Array.prototype.slice.apply(arguments);
-      return _.contains(values, phase);
+      var phases = _.toArray(arguments);
+      return _.contains(phases, this.get('phase'));
     },
 
     attack: function () {
-      if (this.attackQueue.length) {
-        _.forEach(this.attackQueue, function (card) {
-          card.onAttack();
-        });
-      } else {
-        throw 'No cards selected to attack'
-      }
+      if (!this.isPhase('main-1')) { throw 'You cant attack during this phase' }
+      if (!this.attackQueue.length) { throw 'No cards selected to attack' }
+      this.set('phase', 'combat');
+      _.forEach(this.attackQueue, function (card) {
+        card.onAttack();
+      });
+      this.set('phase', 'main-2');
     },
 
     addToAttackQueue: function (card) {
