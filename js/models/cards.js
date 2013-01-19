@@ -3,8 +3,9 @@ define(['backbone', 'models/card_types', 'models/effects'], function (Backbone, 
   var Card = Backbone.Model.extend({
 
     initialize: function (options) {
-      this.set('states', []);
+      this.set('states', [], {silent: true});
       this.type = CardTypes(options.type);
+      this.croupier = this.collection.croupier;
       var effects = options.effects.concat(this.type.effects);
       this.setEffects(effects);
     },
@@ -41,7 +42,7 @@ define(['backbone', 'models/card_types', 'models/effects'], function (Backbone, 
     },
 
     cast: function () {
-      this.collection.croupier.castCard(this);
+      this.croupier.castCard(this);
       this.onCast();
       this.afterCast();
     },
@@ -49,7 +50,7 @@ define(['backbone', 'models/card_types', 'models/effects'], function (Backbone, 
     attack: function () {
       if (this.get('attack') === undefined) { throw 'This card cant attack'; }
       if (this.isSick()) { throw 'A card cant attack in the 1st turn'}
-      if (this.collection.croupier.addToAttackQueue(this)) {
+      if (this.croupier.addToAttackQueue(this)) {
         this.tap();
         return true;
       }
@@ -117,7 +118,7 @@ define(['backbone', 'models/card_types', 'models/effects'], function (Backbone, 
     }
   });
 
-  var Hand = Cards.extend({});
+  var Hand = Cards.extend();
 
   var Table = Cards.extend({
 
@@ -138,7 +139,8 @@ define(['backbone', 'models/card_types', 'models/effects'], function (Backbone, 
     }
 
   });
-  var Graveyard = Cards.extend({});
+
+  var Graveyard = Cards.extend();
 
   return {
 

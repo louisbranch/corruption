@@ -1,11 +1,12 @@
 define(['underscore', 'backbone', 'models/bank', 'models/cards', 'config'], function (_, Backbone, Bank, Cards, Config) {
 
-  PHASES = ['beginning', 'main-1', 'combat', 'main-2', 'ending'];
+  var PHASES = ['beginning', 'main-1', 'combat', 'main-2', 'ending'];
 
   var Croupier = Backbone.Model.extend({
 
-    initialize: function (player) {
+    initialize: function (player, game) {
       this.player = player;
+      this.game = game;
       this.bank = new Bank(this);
       this.attackQueue = [];
       this.set('phase', null, {silent: true});
@@ -58,20 +59,19 @@ define(['underscore', 'backbone', 'models/bank', 'models/cards', 'config'], func
       this.set('phase', PHASES[4]);
       this.set('phase', null);
       this.table.endTurn();
-      this.player.game.nextTurn();
+      this.game.nextTurn();
     },
 
     isMyTurn: function () {
-      return this.player.game.isPlayerTurn(this.player);
+      return this.game.isPlayerTurn(this.player);
     },
 
     isPhase: function (phases) {
       var phase = this.get('phase');
       if (_.isArray(phases)) {
         return _.contains(phases, phase);
-      } else {
-        return phases === phase;
       }
+      return phases === phase;
     },
 
     attack: function () {
@@ -87,19 +87,18 @@ define(['underscore', 'backbone', 'models/bank', 'models/cards', 'config'], func
     addToAttackQueue: function (card) {
       this.verify({turn: true, phase: 'combat'});
       var index = this.attackQueue.indexOf(card);
-      if (index === -1) {
-        this.attackQueue.push(card);
-        this.trigger('change');
-        return true;
-      }
+      if (index !== -1) { return; }
+      this.attackQueue.push(card);
+      this.trigger('change');
+      return true;
     },
 
     removeFromAttackQueue: function (card) {
       var index = this.attackQueue.indexOf(card);
-      if (index >= 0) {
-        this.attackQueue.splice(index, 1);
-        this.trigger('change');
-      }
+      if (index === -1) { return; }
+      this.attackQueue.splice(index, 1);
+      this.trigger('change');
+      return true;
     },
 
     verify: function (conditions) {
@@ -117,7 +116,7 @@ define(['underscore', 'backbone', 'models/bank', 'models/cards', 'config'], func
       }
     }
 
-  })
+  });
 
   return Croupier;
 

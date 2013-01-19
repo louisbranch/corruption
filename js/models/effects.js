@@ -1,11 +1,7 @@
 define(['underscore'], function (_) {
 
-  var getCroupier = function (card) {
-    return card.collection.croupier;
-  };
-
   var getEnemy = function (card) {
-    return getCroupier(card).player.getEnemy();
+    return card.croupier.player.getEnemy();
   };
 
   var Effects = {
@@ -13,14 +9,14 @@ define(['underscore'], function (_) {
     addFunds: function (card, options) {
       var amount = options.amount;
       return function () {
-        card.collection.croupier.bank.addFunds(amount);
+        card.croupier.bank.addFunds(amount);
       };
     },
 
     drawCard: function (card, options) {
       var amount = options.amount;
       return function () {
-        getCroupier(card).drawCard(amount);
+        card.croupier.drawCard(amount);
       };
     },
 
@@ -58,7 +54,7 @@ define(['underscore'], function (_) {
       }
     }
 
-  }
+  };
 
   return Effects;
 });

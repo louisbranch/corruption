@@ -33,17 +33,15 @@ define(['backbone', 'models/battlefield'], function (Backbone, Battlefield) {
     getRandomPlayer: function () {
       if (Math.random() >= 0.5) {
         return this.player1;
-      } else {
-        return this.player2;
       }
+      return this.player2;
     },
 
     getEnemy: function (player) {
       if (player === this.player1) {
         return this.player2;
-      } else {
-        return this.player1;
       }
+      return this.player1;
     },
 
     isPlayerTurn: function (player) {
