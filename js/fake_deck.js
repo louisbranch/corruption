@@ -52,10 +52,10 @@ define(['models/cards'], function (Cards) {
     var self = [];
     var i = 0
     while (i < 5) {
-      self.push(new Cards.Card(land));
-      self.push(new Cards.Card(drawer));
-      self.push(new Cards.Card(damager));
-      self.push(new Cards.Card(creature));
+      self.push(land);
+      self.push(drawer);
+      self.push(damager);
+      self.push(creature);
       i += 1;
     }
     return self;
