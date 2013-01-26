@@ -4,9 +4,9 @@ define(['underscore', 'backbone', 'models/bank', 'models/cards', 'config'], func
 
   var Croupier = Backbone.Model.extend({
 
-    initialize: function (player, game) {
+    initialize: function (player) {
       this.player = player;
-      this.game = game;
+      this.game = this.player.game;
       this.bank = new Bank(this);
       this.attackQueue = [];
       this.set('phase', null, {silent: true});

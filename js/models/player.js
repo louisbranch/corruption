@@ -2,8 +2,9 @@ define(['backbone', 'models/croupier'], function (Backbone, Croupier) {
 
   var Player = Backbone.Model.extend({
 
-    initialize: function () {
-      this.croupier = new Croupier(this, this.game);
+    setCroupier: function (deck) {
+      this.croupier = new Croupier(this);
+      this.croupier.setDeck(deck);
     },
 
     getEnemy: function () {

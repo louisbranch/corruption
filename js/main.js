@@ -27,8 +27,8 @@ require(['js/models/game.js', 'views/game', 'models/player', 'fake_deck'],
   var game = new Game(luiz, larissa)
   window.Game = game;
 
-  luiz.croupier.setDeck(new FakeDeck());
-  larissa.croupier.setDeck(new FakeDeck());
+  luiz.setCroupier(new FakeDeck());
+  larissa.setCroupier(new FakeDeck());
   luiz.croupier.drawInitialHand();
   larissa.croupier.drawInitialHand();
 
