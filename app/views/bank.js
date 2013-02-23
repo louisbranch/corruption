@@ -1,4 +1,5 @@
-define(['jquery', 'backbone', 'mustache', 'text!templates/bank.mustache'], function ($, Backbone, Mustache, Template) {
+define(['jquery', 'backbone', 'mustache', 'text!templates/bank.mustache'],
+function ($, Backbone, Mustache, template) {
 
   var Bank = Backbone.View.extend({
     className: 'bank',
@@ -8,8 +9,8 @@ define(['jquery', 'backbone', 'mustache', 'text!templates/bank.mustache'], funct
     },
 
     render: function () {
-      var template = Mustache.render(Template, this.model.toJSON());
-      this.$el.html(template);
+      var html = Mustache.render(template, this.model.toJSON());
+      this.$el.html(html);
       return this;
     }
   });

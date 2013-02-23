@@ -3,7 +3,6 @@ define(['backbone', 'config'], function (Backbone, Config) {
   var Bank = Backbone.Model.extend({
 
     initialize: function (croupier) {
-      this.croupier = croupier;
       this.set('funds', Config.startingFunds);
     },
 
