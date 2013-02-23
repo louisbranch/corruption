@@ -1,5 +1,5 @@
 requirejs.config({
-  baseUrl: 'js',
+  baseUrl: 'app',
   paths: {
     'jquery': 'lib/jquery-1.8.2',
     'underscore': 'lib/underscore',
@@ -18,24 +18,16 @@ requirejs.config({
   }
 });
 
-require(['js/models/game.js', 'views/game', 'models/player', 'fake_deck'],
+require(['app/models/game.js', 'views/game', 'models/player', 'fake_deck'],
   function (Game, GameView, Player, FakeDeck) {
 
-  var luiz = new Player({name: 'luiz'});
-  var larissa = new Player({name: 'larissa'});
+  var luiz = {id: 1, name: 'luiz'};
+  var larissa = {id: 2, name: 'larissa'};
 
-  var game = new Game(luiz, larissa)
-  window.Game = game;
-
-  luiz.setCroupier(new FakeDeck());
-  larissa.setCroupier(new FakeDeck());
-  luiz.croupier.drawInitialHand();
-  larissa.croupier.drawInitialHand();
+  var game = new Game([luiz, larissa])
 
   var gameView = new GameView({model: game});
+
   gameView.render();
-
-
-  game.start();
 
 });
