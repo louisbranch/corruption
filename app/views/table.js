@@ -21,6 +21,7 @@ define(['jquery', 'backbone', 'underscore', 'mustache', 'text!templates/table.mu
 
       attack: function () {
         this.model.attack();
+        om('card:attack', this.model);
       },
 
       tap: function () {

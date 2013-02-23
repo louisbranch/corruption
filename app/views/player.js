@@ -1,20 +1,23 @@
-define(['jquery', 'backbone', 'mustache', 'text!templates/player.mustache', 'views/bank'],
-function ($, Backbone, Mustache, Template, Bank) {
+define(['jquery', 'backbone', 'om', 'mustache', 'views/battlefield'],
+function ($, Backbone, om, Mustache, View) {
 
   var Player = Backbone.View.extend({
 
     className: 'player',
 
+    initialize: function () {
+      om.on('player:render', this.render, this);
+    },
+
     render: function () {
-      var template = Mustache.render(Template, this.model.toJSON());
-      this.$el.html(template);
-      this.renderBank();
+      this.renderBattlefield();
       return this;
     },
 
-    renderBank: function () {
-      var bankView = new Bank({model: this.model.croupier.bank});
-      this.$el.find('.bank').replaceWith(bankView.render().el);
+    renderBattlefield: function () {
+      var battlefield = this.model.battlefield;
+      var view = new View({model: battlefield});
+      $('body').append(view.render().el);
     }
 
   });

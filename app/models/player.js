@@ -1,14 +1,10 @@
-define(['backbone', 'models/croupier'], function (Backbone, Croupier) {
+define(['backbone', 'models/battlefield', 'views/player'], function (Backbone, Battlefield, playerView) {
 
   var Player = Backbone.Model.extend({
 
-    setCroupier: function (deck) {
-      this.croupier = new Croupier(this);
-      this.croupier.setDeck(deck);
-    },
-
-    getEnemy: function () {
-      return this.game.getEnemy(this);
+    initialize: function () {
+      this.battlefield = new Battlefield();
+      new playerView({model: this});
     }
 
   });

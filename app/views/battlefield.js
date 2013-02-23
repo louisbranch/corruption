@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'text!templates/battlefield.mustache'],
-  function ($, Backbone, template) {
+define(['jquery', 'backbone', 'om', 'text!templates/battlefield.mustache'],
+  function ($, Backbone, om, template) {
 
     var View = Backbone.View.extend({
       className: 'battlefield',

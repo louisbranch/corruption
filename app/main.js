@@ -18,16 +18,16 @@ requirejs.config({
   }
 });
 
-require(['app/models/game.js', 'views/game', 'models/player', 'fake_deck'],
-  function (Game, GameView, Player, FakeDeck) {
+require(['app/models/game.js', 'views/game', 'models/player', 'om'],
+  function (Game, GameView, Player, om) {
 
   var luiz = {id: 1, name: 'luiz'};
   var larissa = {id: 2, name: 'larissa'};
 
-  var game = new Game([luiz, larissa])
-
+  var game = new Game();
   var gameView = new GameView({model: game});
 
-  gameView.render();
+  om.trigger('game:setPlayers', [luiz, larissa]);
+  om.trigger('player:render');
 
 });

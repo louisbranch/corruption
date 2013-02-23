@@ -6,18 +6,14 @@ define(['underscore', 'backbone'], function (_, Backbone) {
 
   _.extend(om, Backbone.Events);
 
-  om.bind('register', function (players) {
+  om.on('players:register', function (players) {
     _.each(players, function (player) {
       var id = player.get('id');
       om.players[id] = player;
     })
+    console.log(om.players);
   });
 
-  var intonate = function () {
-    var args = _.toArray(arguments);
-    om.trigger.apply(om, args);
-  };
-
-  return intonate;
+  return om;
 
 });
