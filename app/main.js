@@ -18,14 +18,13 @@ requirejs.config({
   }
 });
 
-require(['app/models/game.js', 'views/game', 'models/player', 'om'],
-  function (Game, GameView, Player, om) {
+require(['app/models/game.js', 'models/player', 'om'],
+  function (Game, Player, om) {
 
   var luiz = {id: 1, name: 'luiz'};
   var larissa = {id: 2, name: 'larissa'};
 
   var game = new Game();
-  var gameView = new GameView({model: game});
 
   om.trigger('game:setPlayers', [luiz, larissa]);
   om.trigger('player:render');

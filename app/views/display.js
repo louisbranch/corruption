@@ -1,4 +1,5 @@
-define(['jquery', 'backbone', 'mustache', 'text!templates/display.mustache'], function ($, Backbone, Mustache, Template) {
+define(['jquery', 'backbone', 'mustache', 'text!templates/display.mustache'],
+function ($, Backbone, Mustache, Template) {
   var Display = Backbone.View.extend({
     className: 'display',
 

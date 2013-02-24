@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'om', 'mustache', 'views/battlefield'],
-function ($, Backbone, om, Mustache, View) {
+define(['jquery', 'backbone', 'om', 'mustache', 'text!templates/player.mustache', 'views/stats'],
+function ($, Backbone, om, Mustache, template, Stats) {
 
   var Player = Backbone.View.extend({
 
@@ -10,14 +10,20 @@ function ($, Backbone, om, Mustache, View) {
     },
 
     render: function () {
-      this.renderBattlefield();
+      var html = Mustache.render(template);
+      this.$el.html(html);
+      this.renderStats();
+      $('body').append(this.$el);
       return this;
     },
 
-    renderBattlefield: function () {
-      var battlefield = this.model.battlefield;
-      var view = new View({model: battlefield});
-      $('body').append(view.render().el);
+    renderStats: function () {
+      var view = new Stats({
+        player: this.model,
+        bank: this.model.bank
+      });
+      $stats = this.$el.find('#stats');
+      $stats.replaceWith(view.render().el);
     }
 
   });
