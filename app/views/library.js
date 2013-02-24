@@ -1,21 +1,17 @@
-define(['jquery', 'backbone', 'mustache', 'text!templates/library.mustache'],
-  function ($, Backbone, Mustache, Template) {
+define(['jquery', 'backbone', 'text!templates/library.mustache'],
+  function ($, Backbone, template) {
 
     var View = Backbone.View.extend({
 
       className: 'library',
 
       initialize: function () {
-        this.collection.bind('change', this.reRender, this);
+        this.collection.on('change', this.render, this);
       },
 
       render: function () {
-        this.$el.html(Template);
+        this.$el.html(template);
         return this;
-      },
-
-      reRender: function () {
-        this.$el.replaceWith(this.render().el);
       }
 
     });

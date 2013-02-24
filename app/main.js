@@ -29,9 +29,9 @@ require(['app/models/game.js', 'om', 'fake_deck'],
   new Game();
 
   om.trigger('game:setPlayers', [luiz, larissa]);
-  om.trigger('players:render');
 
   om.player(1, 'setDeck', fake);
   om.player(2, 'setDeck', fake);
 
+  om.trigger('players:render');
 });

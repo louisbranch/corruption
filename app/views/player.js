@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'om', 'mustache', 'text!templates/player.mustache', 'views/stats'],
-function ($, Backbone, om, Mustache, template, Stats) {
+define(['jquery', 'backbone', 'om', 'text!templates/player.mustache', 'views/stats', 'views/library'],
+function ($, Backbone, om, template, Stats, Library) {
 
   var Player = Backbone.View.extend({
 
@@ -10,9 +10,9 @@ function ($, Backbone, om, Mustache, template, Stats) {
     },
 
     render: function () {
-      var html = Mustache.render(template);
-      this.$el.html(html);
+      this.$el.html(template);
       this.renderStats();
+      this.renderLibrary();
       $('body').append(this.$el);
       return this;
     },
@@ -22,8 +22,14 @@ function ($, Backbone, om, Mustache, template, Stats) {
         player: this.model,
         bank: this.model.bank
       });
-      $stats = this.$el.find('#stats');
-      $stats.replaceWith(view.render().el);
+      $el = this.$el.find('#stats');
+      $el.replaceWith(view.render().el);
+    },
+
+    renderLibrary: function () {
+      var view = new Library({collection: this.model.library});
+      $el = this.$el.find('#library');
+      $el.replaceWith(view.render().el);
     }
 
   });

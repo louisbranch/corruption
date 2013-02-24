@@ -14,7 +14,6 @@ function (Backbone, View, Battlefield, Bank, Cards) {
     },
 
     setDeck: function (cards) {
-      console.log(cards)
       this.library = new Cards.Library(cards);
     }
 
