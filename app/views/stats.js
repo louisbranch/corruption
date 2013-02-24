@@ -3,6 +3,8 @@ function ($, _, Backbone, om, Mustache, template) {
 
   var View = Backbone.View.extend({
 
+    className: 'stats',
+
     initialize: function (options) {
       _.extend(this, _.pick(options, 'player', 'bank'));
 
