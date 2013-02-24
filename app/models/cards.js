@@ -2,11 +2,10 @@ define(['backbone', 'models/card_types', 'models/effects'], function (Backbone, 
 
   var Card = Backbone.Model.extend({
 
-    initialize: function (options) {
+    initialize: function () {
       this.set('states', [], {silent: true});
-      this.type = CardTypes(options.type);
-      this.croupier = this.collection.croupier;
-      var effects = options.effects.concat(this.type.effects);
+      this.type = CardTypes(this.get('type'));
+      var effects = this.get('effects').concat(this.type.effects);
       this.setEffects(effects);
     },
 
@@ -93,13 +92,7 @@ define(['backbone', 'models/card_types', 'models/effects'], function (Backbone, 
   });
 
   var Cards = Backbone.Collection.extend({
-    model: Card,
-
-    initialize: function (cards, croupier) {
-      this.add(cards);
-      this.croupier = croupier;
-    }
-
+    model: Card
   })
 
   var Library = Cards.extend({

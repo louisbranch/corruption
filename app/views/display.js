@@ -1,21 +1,21 @@
 define(['jquery', 'backbone', 'mustache', 'text!templates/display.mustache'],
-function ($, Backbone, Mustache, Template) {
+function ($, Backbone, Mustache, template) {
   var Display = Backbone.View.extend({
     className: 'display',
 
     initialize: function (options) {
-      this.hand = options.hand;
-      this.library = options.library;
-      this.hand.bind('add', this.render, this);
-      this.hand.bind('remove', this.render, this);
+      _.extend(this, _.pick(options, 'library', 'hand'));
+
+      this.hand.on('add', this.render, this);
+      this.hand.on('remove', this.render, this);
     },
 
     render: function () {
-      var template = Mustache.render(Template, {
+      var html = Mustache.render(template, {
         library: this.library.length,
         hand: this.hand.length}
       );
-      this.$el.html(template);
+      this.$el.html(html);
       return this;
     },
 

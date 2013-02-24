@@ -14,6 +14,12 @@ define(['underscore', 'backbone'], function (_, Backbone) {
     console.log(om.players);
   });
 
+  om.player = function (id, event) {
+    var player = this.players[id];
+    var args = _.toArray(arguments);
+    player[event].apply(player, args.splice(2));
+  };
+
   return om;
 
 });

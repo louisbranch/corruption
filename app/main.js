@@ -18,15 +18,20 @@ requirejs.config({
   }
 });
 
-require(['app/models/game.js', 'models/player', 'om'],
-  function (Game, Player, om) {
+require(['app/models/game.js', 'om', 'fake_deck'],
+  function (Game, om, FakeDeck) {
 
   var luiz = {id: 1, name: 'luiz'};
   var larissa = {id: 2, name: 'larissa'};
 
-  var game = new Game();
+  var fake = FakeDeck();
+
+  new Game();
 
   om.trigger('game:setPlayers', [luiz, larissa]);
-  om.trigger('player:render');
+  om.trigger('players:render');
+
+  om.player(1, 'setDeck', fake);
+  om.player(2, 'setDeck', fake);
 
 });

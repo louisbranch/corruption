@@ -6,7 +6,7 @@ function ($, Backbone, om, Mustache, template, Stats) {
     className: 'player',
 
     initialize: function () {
-      om.on('player:render', this.render, this);
+      om.on('players:render', this.render, this);
     },
 
     render: function () {

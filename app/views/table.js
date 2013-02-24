@@ -5,9 +5,9 @@ define(['jquery', 'backbone', 'underscore', 'mustache', 'text!templates/table.mu
       tagName: 'li',
 
       initialize: function () {
-        this.model.bind('destroy', this.remove, this);
-        this.model.bind('tap', this.tap, this);
-        this.model.bind('untap', this.untap, this);
+        this.model.on('destroy', this.remove, this);
+        this.model.on('tap', this.tap, this);
+        this.model.on('untap', this.untap, this);
       },
 
       events: {
@@ -38,7 +38,7 @@ define(['jquery', 'backbone', 'underscore', 'mustache', 'text!templates/table.mu
       className: 'table',
 
       initialize: function () {
-        this.collection.bind('add', this.add, this);
+        this.collection.on('add', this.add, this);
       },
 
       render: function () {

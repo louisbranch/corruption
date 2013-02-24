@@ -12,7 +12,7 @@ module.exports = function(grunt) {
     },
     regarde: {
       app: {
-        files: 'app/**/*.js',
+        files: ['app/**/*.js', '!app/**/*.js.swp'],
         tasks: ['livereload']
       }
     },
