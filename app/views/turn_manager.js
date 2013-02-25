@@ -1,5 +1,5 @@
 define(['jquery', 'underscore', 'backbone', 'mustache', 'text!templates/turn_manager.mustache'],
-function ($, _, Backbone, Mustache, Template) {
+function ($, _, Backbone, Mustache, template) {
 
   var View = Backbone.View.extend({
 
@@ -14,8 +14,8 @@ function ($, _, Backbone, Mustache, Template) {
     },
 
     render: function () {
-      var template = Mustache.render(Template, this.attr());
-      this.$el.html(template);
+      var html = Mustache.render(template, this.attr());
+      this.$el.html(html);
       return this;
     },
 

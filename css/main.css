@@ -1,12 +1,13 @@
-.visitor-battlefield, .home-battlefield {
+.player {
   clear: both;
+  overflow: hidden;
 }
 
 .table ul, .hand {
   overflow: hidden;
 }
 
-.full-deck, .hand li, .table li {
+.library, .graveyard, .hand li, .table li {
   float: left;
   margin: 10px;
   width: 140px;
@@ -16,6 +17,12 @@
   line-height: 180px;
   text-align: center;
   overflow: hidden;
+}
+
+.graveyard {
+  float: right;
+  background-color: #333;
+  color: #fff;
 }
 
 .hand li {

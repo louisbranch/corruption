@@ -1,5 +1,5 @@
-define(['backbone', 'views/player', 'models/battlefield', 'models/bank', 'models/cards'],
-function (Backbone, View, Battlefield, Bank, Cards) {
+define(['backbone', 'config', 'views/player', 'models/battlefield', 'models/bank', 'models/cards'],
+function (Backbone, config, View, Battlefield, Bank, Cards) {
 
   var Player = Backbone.Model.extend({
 
@@ -15,7 +15,11 @@ function (Backbone, View, Battlefield, Bank, Cards) {
 
     setDeck: function (cards) {
       this.library = new Cards.Library(cards);
-    }
+    },
+
+    drawHand: function () {
+      this.library.draw(config.initialHandCards, this.hand);
+    },
 
   });
 

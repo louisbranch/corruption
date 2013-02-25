@@ -4,19 +4,9 @@ define(['underscore', 'backbone', 'models/bank', 'models/cards', 'config'], func
 
   var Croupier = Backbone.Model.extend({
 
-    initialize: function (player) {
-      this.player = player;
-      this.game = this.player.game;
-      this.bank = new Bank(this);
+    initialize: function () {
       this.attackQueue = [];
       this.set('phase', null, {silent: true});
-    },
-
-    setDeck: function (cards) {
-      this.library = new Cards.Library(cards, this);
-      this.hand = new Cards.Hand([],this);
-      this.table = new Cards.Table([],this);
-      this.graveyard = new Cards.Graveyard([],this);
     },
 
     start: function () {
@@ -35,10 +25,6 @@ define(['underscore', 'backbone', 'models/bank', 'models/cards', 'config'], func
       var currentPhase = this.get('phase');
       var nextPhase = PHASES[PHASES.indexOf(currentPhase) + 1];
       this.set('phase', nextPhase);
-    },
-
-    drawInitialHand: function () {
-      this.library.draw(Config.initialHandCards, this.hand);
     },
 
     drawCard: function (n) {

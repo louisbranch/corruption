@@ -24,6 +24,7 @@ function ($, Backbone, om, template, Stats, Library, Hand, Table, Graveyard, Dis
       this.renderTable();
       this.renderGraveyard();
       this.renderDisplay();
+
       _.each(this.children, function (view, key) {
         var $el = this.$el.find('#' + key);
         $el.replaceWith(view.render().el)

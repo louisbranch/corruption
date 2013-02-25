@@ -34,4 +34,7 @@ require(['app/models/game.js', 'om', 'fake_deck'],
   om.player(2, 'setDeck', fake);
 
   om.trigger('players:render');
+
+  om.player(1, 'drawHand', fake);
+  om.player(2, 'drawHand', fake);
 });

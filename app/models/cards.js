@@ -1,16 +1,16 @@
-define(['backbone', 'models/card_types', 'models/effects'], function (Backbone, CardTypes, Effects) {
+define(['underscore', 'backbone', 'models/card_types', 'models/effects'], function (_, Backbone, CardTypes, Effects) {
 
   var Card = Backbone.Model.extend({
 
     initialize: function () {
       this.set('states', [], {silent: true});
       this.type = CardTypes(this.get('type'));
-      var effects = this.get('effects').concat(this.type.effects);
-      this.setEffects(effects);
+      this.setEffects();
     },
 
-    setEffects: function (effects) {
-      var card = this;
+    setEffects: function () {
+      var effects = this.get('effects').concat(this.type.effects);
+
       var triggers = {
         onCast: [],
         onAttack: [],
@@ -20,16 +20,15 @@ define(['backbone', 'models/card_types', 'models/effects'], function (Backbone, 
         endTurn: []
       };
 
-      effects.forEach(function (effect) {
-        var e = Effects[effect.type](card, effect);
+      _.each(effects, function (effect) {
+        var e = Effects[effect.type](this, effect);
         triggers[effect.trigger].push(e);
-      });
+      }, this);
 
-      for (var i in triggers) {
-        if (triggers.hasOwnProperty(i)) {
-          this.set(i, triggers[i]);
-        }
-      }
+      _.each(triggers, function (value, key) {
+        this.set(key, value);
+      }, this);
+
     },
 
     tap: function () {
@@ -56,31 +55,27 @@ define(['backbone', 'models/card_types', 'models/effects'], function (Backbone, 
     },
 
     onCast: function () {
-      this.get('onCast').forEach(function (effect) {
-        effect();
-      });
+      this.fireEffects('onCast');
     },
 
     afterCast: function () {
-      this.get('afterCast').forEach(function (effect) {
-        effect();
-      });
+      this.fireEffects('afterCast');
     },
 
     onAttack: function () {
-      this.get('onAttack').forEach(function (effect) {
-        effect();
-      });
+      this.fireEffects('onAttack');
     },
 
     eachTurn: function () {
-      this.get('eachTurn').forEach(function (effect) {
-        effect();
-      });
+      this.fireEffects('eachTurn');
     },
 
     endTurn: function () {
-      this.get('endTurn').forEach(function (effect) {
+      this.fireEffects('endTurn');
+    },
+
+    fireEffects: function (type) {
+      _.each(this.get(type), function (effect) {
         effect();
       });
     },
@@ -116,19 +111,15 @@ define(['backbone', 'models/card_types', 'models/effects'], function (Backbone, 
   var Table = Cards.extend({
 
     untapAll: function () {
-      this.models.forEach(function (card) {
+      _.each(this.models, function (card) {
         card.untap();
       });
     },
 
     endTurn: function () {
-      this.models.forEach(function (card) {
+      _.each(this.models, function (card) {
         card.endTurn();
       });
-    },
-
-    attack: function () {
-      this.croupier.attack();
     }
 
   });
