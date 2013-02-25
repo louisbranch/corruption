@@ -1,4 +1,5 @@
-define(['underscore', 'backbone', 'models/card_types', 'models/effects'], function (_, Backbone, CardTypes, Effects) {
+define(['underscore', 'backbone', 'om', 'models/card_types', 'models/effects'],
+function (_, Backbone, om, CardTypes, Effects) {
 
   var Card = Backbone.Model.extend({
 
@@ -41,9 +42,8 @@ define(['underscore', 'backbone', 'models/card_types', 'models/effects'], functi
 
     cast: function () {
       var player = this.collection.player;
-      om.player(player, 'castCard', this);
-      this.onCast();
-      this.afterCast();
+      var promise = om(player, 'castCard', this);
+      promise.done(this.onCast, this.afterCast);
     },
 
     attack: function () {

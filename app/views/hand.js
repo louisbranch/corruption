@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'underscore', 'mustache', 'text!templates/hand.mustache'],
-function ($, Backbone, _, Mustache, template) {
+define(['jquery', 'underscore', 'backbone', 'mustache', 'text!templates/hand.mustache'],
+function ($, _, Backbone, Mustache, template) {
 
   var View = Backbone.View.extend({
     tagName: 'li',

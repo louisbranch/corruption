@@ -28,6 +28,11 @@ function (_, Backbone, config, View, Battlefield, Bank, Cards) {
 
     render: function (deferred) {
       this.view.render();
+    },
+
+    castCard: function (deferred) {
+      deferred.resolve();
+      //deferred.reject('ERROR');
     }
 
   });
