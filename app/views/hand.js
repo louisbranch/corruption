@@ -1,60 +1,59 @@
 define(['jquery', 'backbone', 'underscore', 'mustache', 'text!templates/hand.mustache'],
-  function ($, Backbone, _, Mustache, Template) {
+function ($, Backbone, _, Mustache, template) {
 
-    var View = Backbone.View.extend({
-      tagName: 'li',
+  var View = Backbone.View.extend({
+    tagName: 'li',
 
-      initialize: function () {
-        this.model.bind('removedFromHand', this.remove, this);
-      },
+    initialize: function () {
+      this.model.bind('removedFromHand', this.remove, this);
+    },
 
-      events: {
-        'click' : 'cast'
-      },
+    events: {
+      'click' : 'cast'
+    },
 
-      render: function () {
-        this.$el.html(Mustache.render(Template, this.model.toJSON()));
-        return this;
-      },
+    render: function () {
+      var html = Mustache.render(template, this.model.toJSON());
+      this.$el.html(html);
+      return this;
+    },
 
-      cast: function () {
-        this.model.cast();
-      }
+    cast: function () {
+      this.model.cast();
+    }
 
-    });
+  });
 
-    var Collection = Backbone.View.extend({
-      tagName: 'ul',
-      className: 'hand',
+  var Collection = Backbone.View.extend({
+    tagName: 'ul',
+    className: 'hand',
 
-      initialize: function () {
-        this.collection.bind('add', this.add, this);
-        this.collection.bind('remove', this.remove, this);
-      },
+    initialize: function () {
+      this.collection.bind('add', this.add, this);
+      this.collection.bind('remove', this.remove, this);
+    },
 
-      render: function () {
-        var list = document.createDocumentFragment();
-        _.each(this.collection.models, function (card){
-          var view = new View({model: card});
-          list.appendChild(view.render().el);
-        });
-        this.$el.append(list);
-        return this;
-      },
-
-      add: function (card) {
+    render: function () {
+      var list = document.createDocumentFragment();
+      _.each(this.collection.models, function (card){
         var view = new View({model: card});
-        this.$el.append(view.render().el);
-      },
+        list.appendChild(view.render().el);
+      });
+      this.$el.append(list);
+      return this;
+    },
 
-      remove: function (card) {
-        card.trigger('removedFromHand');
-      }
+    add: function (card) {
+      var view = new View({model: card});
+      this.$el.append(view.render().el);
+    },
 
-    });
+    remove: function (card) {
+      card.trigger('removedFromHand');
+    }
 
-    return Collection;
+  });
 
-  }
-);
+  return Collection;
 
+});

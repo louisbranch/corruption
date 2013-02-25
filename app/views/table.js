@@ -1,66 +1,65 @@
 define(['jquery', 'backbone', 'underscore', 'mustache', 'text!templates/table.mustache', 'text!templates/hand.mustache'],
-  function ($, Backbone, _, Mustache, TableTemplate, Template) {
+function ($, Backbone, _, Mustache, tableTemplate, handTemplate) {
 
-    var View = Backbone.View.extend({
-      tagName: 'li',
+  var View = Backbone.View.extend({
+    tagName: 'li',
 
-      initialize: function () {
-        this.model.on('destroy', this.remove, this);
-        this.model.on('tap', this.tap, this);
-        this.model.on('untap', this.untap, this);
-      },
+    initialize: function () {
+      this.model.on('destroy', this.remove, this);
+      this.model.on('tap', this.tap, this);
+      this.model.on('untap', this.untap, this);
+    },
 
-      events: {
-        'click' : 'attack'
-      },
+    events: {
+      'click' : 'attack'
+    },
 
-      render: function () {
-        this.$el.html(Mustache.render(Template, this.model.toJSON()));
-        return this;
-      },
+    render: function () {
+      var html = Mustache.render(handTemplate, this.model.toJSON());
+      this.$el.html(html);
+      return this;
+    },
 
-      attack: function () {
-        this.model.attack();
-        om('card:attack', this.model);
-      },
+    attack: function () {
+      this.model.attack();
+    },
 
-      tap: function () {
-        this.$el.addClass('tap');
-      },
+    tap: function () {
+      this.$el.addClass('tap');
+    },
 
-      untap: function () {
-        this.$el.removeClass('tap');
-      }
+    untap: function () {
+      this.$el.removeClass('tap');
+    }
 
-    });
+  });
 
-    var Collection = Backbone.View.extend({
-      className: 'table',
+  var Collection = Backbone.View.extend({
+    className: 'table',
 
-      initialize: function () {
-        this.collection.on('add', this.add, this);
-      },
+    initialize: function () {
+      this.collection.on('add', this.add, this);
+    },
 
-      render: function () {
-        var template = Mustache.render(TableTemplate);
-        this.$el.html(template);
-        return this;
-      },
+    render: function () {
+      var html = Mustache.render(tableTemplate);
+      this.$el.html(html);
+      return this;
+    },
 
-      add: function (card) {
-        var view = new View({model: card});
-        $list = this.findCardList(card);
-        $list.append(view.render().el);
-      },
+    add: function (card) {
+      var view = new View({model: card});
+      $list = this.findCardList(card);
+      $list.append(view.render().el);
+    },
 
-      findCardList: function (card) {
-        var name = card.type.name;
-        return this.$el.find('ul.table-' + name);
-      }
+    findCardList: function (card) {
+      var name = card.type.name;
+      return this.$el.find('ul.table-' + name);
+    }
 
-    });
+  });
 
-    return Collection;
+  return Collection;
 
-  }
-);
+});
