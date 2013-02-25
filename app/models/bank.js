@@ -1,9 +1,9 @@
-define(['backbone', 'config'], function (Backbone, Config) {
+define(['backbone', 'config'], function (Backbone, config) {
 
   var Bank = Backbone.Model.extend({
 
     initialize: function (croupier) {
-      this.set('funds', Config.startingFunds);
+      this.set('funds', config.startingFunds);
     },
 
     payCost: function (amount) {

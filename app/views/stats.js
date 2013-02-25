@@ -1,5 +1,5 @@
-define(['jquery', 'underscore', 'backbone', 'om', 'mustache', 'text!templates/stats.mustache'],
-function ($, _, Backbone, om, Mustache, template) {
+define(['jquery', 'underscore', 'backbone', 'mustache', 'text!templates/stats.mustache'],
+function ($, _, Backbone, Mustache, template) {
 
   var View = Backbone.View.extend({
 

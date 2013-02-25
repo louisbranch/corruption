@@ -1,12 +1,11 @@
-define(['jquery', 'backbone', 'om', 'text!templates/player.mustache', 'views/stats', 'views/library', 'views/hand', 'views/table', 'views/graveyard', 'views/display'],
-function ($, Backbone, om, template, Stats, Library, Hand, Table, Graveyard, Display) {
+define(['jquery', 'backbone', 'text!templates/player.mustache', 'views/stats', 'views/library', 'views/hand', 'views/table', 'views/graveyard', 'views/display'],
+function ($, Backbone, template, Stats, Library, Hand, Table, Graveyard, Display) {
 
   var Player = Backbone.View.extend({
 
     className: 'player',
 
     initialize: function () {
-      om.on('players:render', this.render, this);
       this.children = {};
     },
 

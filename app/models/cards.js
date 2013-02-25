@@ -40,7 +40,8 @@ define(['underscore', 'backbone', 'models/card_types', 'models/effects'], functi
     },
 
     cast: function () {
-      this.croupier.castCard(this);
+      var player = this.collection.player;
+      om.player(player, 'castCard', this);
       this.onCast();
       this.afterCast();
     },
@@ -87,7 +88,12 @@ define(['underscore', 'backbone', 'models/card_types', 'models/effects'], functi
   });
 
   var Cards = Backbone.Collection.extend({
-    model: Card
+    model: Card,
+
+    initialize: function (player) {
+      this.player = player;
+    }
+
   })
 
   var Library = Cards.extend({
