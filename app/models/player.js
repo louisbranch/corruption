@@ -1,5 +1,5 @@
-define(['underscore', 'backbone', 'config', 'views/player', 'models/battlefield', 'models/bank', 'models/cards', 'models/turn_manager'],
-function (_, Backbone, config, View, Battlefield, Bank, Cards, TurnManager) {
+define(['underscore', 'backbone', 'config', 'views/player', 'models/battlefield', 'models/bank', 'models/cards', 'models/turn_manager', 'models/attack_queue'],
+function (_, Backbone, config, View, Battlefield, Bank, Cards, TurnManager, AttackQueue) {
 
   var Player = Backbone.Model.extend({
 
@@ -13,6 +13,7 @@ function (_, Backbone, config, View, Battlefield, Bank, Cards, TurnManager) {
       this.table = new Cards.Table();
       this.graveyard = new Cards.Graveyard();
       this.library = new Cards.Library();
+      this.attackQueue = new AttackQueue();
 
       _.each(['turnManager', 'hand', 'table', 'graveyard', 'library'], function (association) {
         this[association].player = this;

@@ -4,10 +4,13 @@ function (_, Backbone, om, CardTypes, Effects) {
   var Card = Backbone.Model.extend({
 
     initialize: function () {
-      this.set('states', [], {silent: true});
       this.type = CardTypes(this.get('type'));
       this.setEffects();
       this.player = this.collection.player;
+    },
+
+    defaults: {
+      states: []
     },
 
     setEffects: function () {
