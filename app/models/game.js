@@ -8,6 +8,8 @@ function (Backbone, _, Player) {
         return new Player(user);
       });
       this.players = players;
+      players[0].enemy = players[1];
+      players[1].enemy = players[0];
     }
 
   });

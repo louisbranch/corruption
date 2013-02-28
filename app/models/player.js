@@ -71,7 +71,11 @@ function (_, Backbone, config, View, Battlefield, Bank, Cards) {
     },
 
     damageEnemy: function (amount) {
-      console.log('damaing', amount);
+      this.enemy.receiveDamage(amount);
+    },
+
+    receiveDamage: function (amount) {
+      this.bank.removeFunds(amount);
     }
 
   });
