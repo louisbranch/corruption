@@ -27,7 +27,7 @@ define(['underscore', 'backbone'], function (_, Backbone) {
       this.set('phase', PHASES[4]);
       this.set('phase', null);
       this.player.table.endTurn();
-      //this.game.nextTurn();
+      this.player.game.newTurn();
     },
 
     isPhase: function (/*phases*/) {

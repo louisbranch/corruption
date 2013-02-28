@@ -36,7 +36,7 @@ require(['app/models/game.js', 'underscore', 'om', 'fake_deck'],
   });
 
   var p1 = game.players[0];
-  game.set('currentTurn', p1);
+  game.turn.player = p1;
   p1.newTurn();
 
 });

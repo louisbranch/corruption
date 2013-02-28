@@ -36,12 +36,15 @@ function ($, _, Backbone, om, Mustache, template) {
 
     attr: function () {
       var phase = this.model.get('phase');
-      return {
-        phase: phase,
-        nextPhase: phase === 'main-1' || phase === 'combat',
-        //combatPhase: this.model.attackQueue.length,
-        endTurn: phase === 'main-2'
+      var attrs = {phase: phase};
+
+      if (this.model.player.get('current')) {
+        attrs.nextPhase = phase === 'main-1' || phase === 'combat';
+        //attrs.combatPhase = this.model.attackQueue.length;
+        attrs.endTurn = phase === 'main-2';
       }
+
+      return attrs;
     }
 
   });

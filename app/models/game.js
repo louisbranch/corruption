@@ -3,6 +3,11 @@ function (Backbone, _, Player) {
 
   var Game = Backbone.Model.extend({
 
+    turn: {
+      counter: 0,
+      player: null
+    },
+
     setPlayers: function (users) {
       var players = _.map(users, function (user) {
         player = new Player(user);
@@ -21,7 +26,14 @@ function (Backbone, _, Player) {
     },
 
     isPlayerTurn: function (player) {
-      return player === this.get('currentTurn');
+      return player === this.turn.player;
+    },
+
+    newTurn: function () {
+      this.turn.counter += 1;
+      var newPlayer = this.getEnemy(this.turn.player);
+      this.turn.player = newPlayer;
+      newPlayer.newTurn();
     }
 
   });
