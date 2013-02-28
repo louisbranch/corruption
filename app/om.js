@@ -3,6 +3,11 @@ define(['jquery', 'underscore'], function ($, _) {
   var entonate = function (player, event) {
     var deferred = $.Deferred();
 
+    if (!player.get('current')) {
+      deferred.reject();
+      return deferred;
+    }
+
     deferred.fail(function (message) {
       console.log(message);
     });

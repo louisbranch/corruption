@@ -18,11 +18,11 @@ function (_, Backbone, config, View, Battlefield, Bank, Cards) {
       }, this);
     },
 
-    setDeck: function (deferred, cards) {
+    setDeck: function (cards) {
       this.library.reset(cards);
     },
 
-    drawHand: function (deferred) {
+    drawHand: function () {
       this.library.draw(config.initialHandCards, this.hand);
     },
 
@@ -35,7 +35,7 @@ function (_, Backbone, config, View, Battlefield, Bank, Cards) {
       this.library.draw(n, this.hand);
     },
 
-    render: function (deferred) {
+    render: function () {
       this.view.render();
     },
 

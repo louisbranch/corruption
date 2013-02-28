@@ -18,8 +18,8 @@ requirejs.config({
   }
 });
 
-require(['app/models/game.js', 'om', 'fake_deck'],
-  function (Game, om, FakeDeck) {
+require(['app/models/game.js', 'underscore', 'om', 'fake_deck'],
+  function (Game, _, om, FakeDeck) {
 
   var luiz = {id: 1, name: 'luiz', current: true};
   var larissa = {id: 2, name: 'larissa'};
@@ -29,16 +29,10 @@ require(['app/models/game.js', 'om', 'fake_deck'],
   var game = new Game()
   game.setPlayers([luiz, larissa]);
 
-  var p1 = game.players[0];
-  var p2 = game.players[1];
-
-  om(p1, 'setDeck', fake);
-  om(p2, 'setDeck', fake);
-
-  om(p1, 'drawHand');
-  om(p2, 'drawHand');
-
-  om(p1, 'render');
-  om(p2, 'render');
+  _.each(game.players, function (player) {
+    player.setDeck(fake);
+    player.drawHand();
+    player.render();
+  });
 
 });
