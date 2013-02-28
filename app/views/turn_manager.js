@@ -23,15 +23,15 @@ function ($, _, Backbone, om, Mustache, template) {
     },
 
     nextPhase: function () {
-      this.model.nextPhase();
+      om(this.player, 'nextPhase');
     },
 
     endTurn: function () {
-      this.model.endTurn();
+      om(this.player, 'endTurn');
     },
 
     attack: function () {
-      this.model.attack();
+      om(this.player, 'startCombat');
     },
 
     attr: function () {

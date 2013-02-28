@@ -27,6 +27,18 @@ function (_, Backbone, config, View, Battlefield, Bank, Cards, TurnManager) {
       this.turnManager.newTurn();
     },
 
+    nextPhase: function (deferred) {
+      //validate
+      this.turnManager.nextPhase();
+      deferred.resolve();
+    },
+
+    endTurn: function (deferred) {
+      //validate
+      this.turnManager.endTurn();
+      deferred.resolve();
+    },
+
     setDeck: function (cards) {
       this.library.reset(cards);
     },
