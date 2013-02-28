@@ -1,55 +1,43 @@
-define(['underscore', 'backbone', 'models/bank', 'models/cards', 'config'], function (_, Backbone, Bank, Cards, Config) {
+define(['underscore', 'backbone'], function (_, Backbone) {
 
-  var Croupier = Backbone.Model.extend({
+  var AttackQueue = Backbone.Model.extend({
 
-    initialize: function () {
-      this.attackQueue = [];
+    defaults: {
+      queue: []
     },
 
     attack: function () {
-      this.verify({turn: true, phase: 'combat'});
-      if (!this.attackQueue.length) { throw 'No cards selected to attack' }
+      var queue = this.get('queue');
       _.forEach(this.attackQueue, function (card) {
         card.onAttack();
       });
-      this.attackQueue = [];
-      this.set('phase', PHASES[3]);
+      this.set('queue', []);
     },
 
-    addToAttackQueue: function (card) {
-      this.verify({turn: true, phase: 'combat'});
-      var index = this.attackQueue.indexOf(card);
+    add: function (card) {
+      var queue = this.get('queue');
+      var index = queue.indexOf(card);
       if (index !== -1) { return; }
-      this.attackQueue.push(card);
-      this.trigger('change');
-      return true;
+
+      queue.push(card);
+      this.set('queue', queue);
     },
 
-    removeFromAttackQueue: function (card) {
-      var index = this.attackQueue.indexOf(card);
+    remove: function (card) {
+      var queue = this.get('queue');
+      var index = queue.indexOf(card);
       if (index === -1) { return; }
-      this.attackQueue.splice(index, 1);
-      this.trigger('change');
-      return true;
+
+      queue.splice(index, 1);
+      this.set('queue', queue);
     },
 
-    verify: function (conditions) {
-
-      if (conditions.turn) {
-        if (this.isMyTurn() !== conditions.turn) {
-          throw new Error('Invalid turn action');
-        }
-      }
-
-      if (conditions.phase) {
-        if (!this.isPhase(conditions.phase)) {
-          throw new Error('Invalid phase action');
-        }
-      }
+    hasAttackers: function () {
+      return this.get('queue').length;
     }
 
   });
 
-  return Croupier;
+  return AttackQueue;
 
 });
