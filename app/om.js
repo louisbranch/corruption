@@ -3,14 +3,19 @@ define(['jquery', 'underscore'], function ($, _) {
   var entonate = function (player, event) {
     var deferred = $.Deferred();
 
-    if (!player.get('current')) {
-      deferred.reject();
-      return deferred;
-    }
-
     deferred.fail(function (message) {
       console.log(message);
     });
+
+    if (!player.get('current')) {
+      deferred.reject('You can\'t play for your opponent!');
+      return deferred;
+    }
+
+    if (!player.isMyTurn()) {
+      deferred.reject('It is not your turn!');
+      return deferred;
+    }
 
     deferred.done(function () {
       console.log(player.get('id'), event);

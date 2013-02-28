@@ -1,5 +1,5 @@
-define(['underscore', 'backbone', 'config', 'views/player', 'models/battlefield', 'models/bank', 'models/cards'],
-function (_, Backbone, config, View, Battlefield, Bank, Cards) {
+define(['underscore', 'backbone', 'config', 'views/player', 'models/battlefield', 'models/bank', 'models/cards', 'models/turn_manager'],
+function (_, Backbone, config, View, Battlefield, Bank, Cards, TurnManager) {
 
   var Player = Backbone.Model.extend({
 
@@ -8,14 +8,19 @@ function (_, Backbone, config, View, Battlefield, Bank, Cards) {
 
       this.battlefield = new Battlefield();
       this.bank = new Bank();
+      this.turnManager = new TurnManager();
       this.hand = new Cards.Hand();
       this.table = new Cards.Table();
       this.graveyard = new Cards.Graveyard();
       this.library = new Cards.Library();
 
-      _.each(['hand', 'table', 'graveyard', 'library'], function (collection) {
-        this[collection].player = this;
+      _.each(['turnManager', 'hand', 'table', 'graveyard', 'library'], function (association) {
+        this[association].player = this;
       }, this);
+    },
+
+    isMyTurn: function () {
+      return this.game.isPlayerTurn(this);
     },
 
     setDeck: function (cards) {
@@ -40,14 +45,16 @@ function (_, Backbone, config, View, Battlefield, Bank, Cards) {
     },
 
     castCard: function (deferred, card) {
-      //this.verify({turn: true, phase: ['main-1', 'main-2']});
+      if (!this.turnManager.canCast()) {
+        return deferred.reject('You can\'t cast a card in this phase!');
+      }
 
       if (!this.hand.include(card)) {
-        return deferred.reject('Card must be in your hand');
+        return deferred.reject('Card must be in your hand!');
       }
 
       if (!this.bank.payCost(card.get('cost'))) {
-        return deferred.reject('Not enough funds');
+        return deferred.reject('Not enough funds!');
       }
 
       this.hand.remove(card);
@@ -56,6 +63,10 @@ function (_, Backbone, config, View, Battlefield, Bank, Cards) {
     },
 
     attack: function (deferred, card) {
+      if (!this.turnManager.canAttack()) {
+        return deferred.reject('You can\'t cast a card in this phase!');
+      }
+
       if (card.get('attack') === undefined) {
         return deferred.reject('This card cant attack');
       }
@@ -71,7 +82,8 @@ function (_, Backbone, config, View, Battlefield, Bank, Cards) {
     },
 
     damageEnemy: function (amount) {
-      this.enemy.receiveDamage(amount);
+      var enemy = this.game.getEnemy(this);
+      enemy.receiveDamage(amount);
     },
 
     receiveDamage: function (amount) {

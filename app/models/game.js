@@ -5,11 +5,23 @@ function (Backbone, _, Player) {
 
     setPlayers: function (users) {
       var players = _.map(users, function (user) {
-        return new Player(user);
-      });
+        player = new Player(user);
+        player.game = this;
+        return player;
+      }, this);
       this.players = players;
-      players[0].enemy = players[1];
-      players[1].enemy = players[0];
+    },
+
+    getEnemy: function (player) {
+      if (player === this.players[0]) {
+        return this.players[1];
+      } else {
+        return this.players[0];
+      }
+    },
+
+    isPlayerTurn: function (player) {
+      return player === this.get('currentTurn');
     }
 
   });

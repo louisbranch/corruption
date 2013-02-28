@@ -1,50 +1,9 @@
 define(['underscore', 'backbone', 'models/bank', 'models/cards', 'config'], function (_, Backbone, Bank, Cards, Config) {
 
-  var PHASES = ['beginning', 'main-1', 'combat', 'main-2', 'ending'];
-
   var Croupier = Backbone.Model.extend({
 
     initialize: function () {
       this.attackQueue = [];
-      this.set('phase', null, {silent: true});
-    },
-
-    start: function () {
-      this.set('phase', 'main-1');
-    },
-
-    newTurn: function () {
-      this.set('phase', PHASES[0]);
-      this.table.untapAll();
-      this.drawCard();
-      this.set('phase', PHASES[1]);
-    },
-
-    nextPhase: function () {
-      this.verify({turn: true, phase: ['main-1', 'combat', 'main-2']});
-      var currentPhase = this.get('phase');
-      var nextPhase = PHASES[PHASES.indexOf(currentPhase) + 1];
-      this.set('phase', nextPhase);
-    },
-
-    endTurn: function () {
-      this.verify({turn: true});
-      this.set('phase', PHASES[4]);
-      this.set('phase', null);
-      this.table.endTurn();
-      this.game.nextTurn();
-    },
-
-    isMyTurn: function () {
-      return this.game.isPlayerTurn(this.player);
-    },
-
-    isPhase: function (phases) {
-      var phase = this.get('phase');
-      if (_.isArray(phases)) {
-        return _.contains(phases, phase);
-      }
-      return phases === phase;
     },
 
     attack: function () {
