@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'text!templates/player.mustache', 'views/stats', 'views/library', 'views/hand', 'views/table', 'views/graveyard', 'views/display'],
-function ($, Backbone, template, Stats, Library, Hand, Table, Graveyard, Display) {
+define(['jquery', 'backbone', 'text!templates/player.mustache', 'views/stats', 'views/library', 'views/hand', 'views/table', 'views/graveyard', 'views/display', 'views/turn_manager'],
+function ($, Backbone, template, Stats, Library, Hand, Table, Graveyard, Display, TurnManager) {
 
   var Player = Backbone.View.extend({
 
@@ -23,6 +23,7 @@ function ($, Backbone, template, Stats, Library, Hand, Table, Graveyard, Display
       this.renderTable();
       this.renderGraveyard();
       this.renderDisplay();
+      this.renderTurnManager();
 
       _.each(this.children, function (view, key) {
         var $el = this.$el.find('#' + key);
@@ -65,6 +66,11 @@ function ($, Backbone, template, Stats, Library, Hand, Table, Graveyard, Display
       });
       this.children['display'] = view;
     },
+
+    renderTurnManager: function () {
+      var view = new TurnManager({model: this.model.turnManager});
+      this.children['turnManager'] = view;
+    }
 
   });
 

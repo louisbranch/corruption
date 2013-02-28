@@ -23,6 +23,10 @@ function (_, Backbone, config, View, Battlefield, Bank, Cards, TurnManager) {
       return this.game.isPlayerTurn(this);
     },
 
+    newTurn: function () {
+      this.turnManager.newTurn();
+    },
+
     setDeck: function (cards) {
       this.library.reset(cards);
     },

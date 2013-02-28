@@ -1,10 +1,13 @@
-define(['jquery', 'underscore', 'backbone', 'mustache', 'text!templates/turn_manager.mustache'],
-function ($, _, Backbone, Mustache, template) {
+define(['jquery', 'underscore', 'backbone', 'om', 'mustache', 'text!templates/turn_manager.mustache'],
+function ($, _, Backbone, om, Mustache, template) {
 
   var View = Backbone.View.extend({
 
+    className: 'turn-manager',
+
     initialize: function () {
       this.model.bind('change', this.render, this);
+      this.player = this.model.player;
     },
 
     events: {
@@ -36,7 +39,7 @@ function ($, _, Backbone, Mustache, template) {
       return {
         phase: phase,
         nextPhase: phase === 'main-1' || phase === 'combat',
-        combatPhase: this.model.attackQueue.length,
+        //combatPhase: this.model.attackQueue.length,
         endTurn: phase === 'main-2'
       }
     }

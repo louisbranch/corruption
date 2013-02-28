@@ -26,7 +26,7 @@ define(['underscore', 'backbone'], function (_, Backbone) {
       //this.verify({turn: true});
       this.set('phase', PHASES[4]);
       this.set('phase', null);
-      this.table.endTurn();
+      this.player.table.endTurn();
       //this.game.nextTurn();
     },
 
