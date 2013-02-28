@@ -7,6 +7,7 @@ function (_, Backbone, om, CardTypes, Effects) {
       this.set('states', [], {silent: true});
       this.type = CardTypes(this.get('type'));
       this.setEffects();
+      this.player = this.collection.player;
     },
 
     setEffects: function () {
@@ -41,18 +42,13 @@ function (_, Backbone, om, CardTypes, Effects) {
     },
 
     cast: function () {
-      var player = this.collection.player;
-      var promise = om(player, 'castCard', this);
+      var promise = om(this.player, 'castCard', this);
       promise.done(this.onCast, this.afterCast);
     },
 
     attack: function () {
-      if (this.get('attack') === undefined) { throw 'This card cant attack'; }
-      if (this.isSick()) { throw 'A card cant attack in the 1st turn'}
-      if (this.croupier.addToAttackQueue(this)) {
-        this.tap();
-        return true;
-      }
+      var promise = om(this.player, 'attack', this);
+      promise.done(this.tap);
     },
 
     onCast: function () {

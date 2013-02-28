@@ -1,22 +1,18 @@
 define(['underscore'], function (_) {
 
-  var getEnemy = function (card) {
-    return card.croupier.player.getEnemy();
-  };
-
   var Effects = {
 
     addFunds: function (card, options) {
       var amount = options.amount;
       return function () {
-        card.croupier.bank.addFunds(amount);
+        card.player.bank.addFunds(amount);
       };
     },
 
     drawCard: function (card, options) {
       var amount = options.amount;
       return function () {
-        card.croupier.drawCard(amount);
+        card.player.drawCard(amount);
       };
     },
 
@@ -26,8 +22,7 @@ define(['underscore'], function (_) {
         amount = options.amount.apply(card);
       }
       return function () {
-        var enemy = getEnemy(card);
-        enemy.croupier.bank.removeFunds(amount);
+        card.player.damageEnemy(amount);
       };
     },
 

@@ -27,19 +27,6 @@ define(['underscore', 'backbone', 'models/bank', 'models/cards', 'config'], func
       this.set('phase', nextPhase);
     },
 
-    drawCard: function (n) {
-      var n = n || 1;
-      this.library.draw(n, this.hand);
-    },
-
-    castCard: function (card) {
-      this.verify({turn: true, phase: ['main-1', 'main-2']});
-      if (!this.hand.include(card)) { throw 'Card must be in your hand'; }
-      if (!this.bank.payCost(card.get('cost'))) { throw 'Not enough funds'; }
-      this.hand.remove(card);
-      this.table.add(card);
-    },
-
     endTurn: function () {
       this.verify({turn: true});
       this.set('phase', PHASES[4]);

@@ -7,6 +7,10 @@ define(['jquery', 'underscore'], function ($, _) {
       console.log(message);
     });
 
+    deferred.done(function () {
+      console.log(player.get('id'), event);
+    });
+
     var args = _.toArray(arguments).splice(2);
     args.splice(0, 0, deferred);
 

@@ -5,6 +5,7 @@
 
 .table ul, .hand {
   overflow: hidden;
+  margin: 0;
 }
 
 .library, .graveyard, .hand li, .table li {

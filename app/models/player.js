@@ -26,13 +26,52 @@ function (_, Backbone, config, View, Battlefield, Bank, Cards) {
       this.library.draw(config.initialHandCards, this.hand);
     },
 
+    attack: function () {
+      console.log('attack');
+    },
+
+    drawCard: function (n) {
+      var n = n || 1;
+      this.library.draw(n, this.hand);
+    },
+
     render: function (deferred) {
       this.view.render();
     },
 
-    castCard: function (deferred) {
-      deferred.resolve();
-      //deferred.reject('ERROR');
+    castCard: function (deferred, card) {
+      //this.verify({turn: true, phase: ['main-1', 'main-2']});
+
+      if (!this.hand.include(card)) {
+        return deferred.reject('Card must be in your hand');
+      }
+
+      if (!this.bank.payCost(card.get('cost'))) {
+        return deferred.reject('Not enough funds');
+      }
+
+      this.hand.remove(card);
+      this.table.add(card);
+      deferred.resolveWith(card);
+    },
+
+    attack: function (deferred, card) {
+      if (card.get('attack') === undefined) {
+        return deferred.reject('This card cant attack');
+      }
+
+      if (card.isSick()) {
+        return deferred.reject('A card cant attack in the 1st turn');
+      }
+
+      if (this.addToAttackQueue(card)) {
+        deferred.resolveWith(card);
+      }
+
+    },
+
+    damageEnemy: function (amount) {
+      console.log('damaing', amount);
     }
 
   });
