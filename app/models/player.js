@@ -29,13 +29,11 @@ function (_, Backbone, config, View, Battlefield, Bank, Cards, TurnManager, Atta
     },
 
     nextPhase: function (deferred) {
-      //validate
       this.turnManager.nextPhase();
       deferred.resolve();
     },
 
     endTurn: function (deferred) {
-      //validate
       this.turnManager.endTurn();
       deferred.resolve();
     },
@@ -89,7 +87,7 @@ function (_, Backbone, config, View, Battlefield, Bank, Cards, TurnManager, Atta
       }
 
       if (card.isSick()) {
-        return deferred.reject('A card cant attack in the 1st turn');
+        return deferred.reject('A card can\'t attack in the 1st turn');
       }
 
       if (this.attackQueue.add(card)) {
