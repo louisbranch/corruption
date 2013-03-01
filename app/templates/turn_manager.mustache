@@ -2,11 +2,13 @@
   {{#phase}}
     <h5>{{phase}}</h5>
   {{/phase}}
-  {{#nextPhase}}
-    <li><button class='next-phase'>Next Phase</button></li>
-  {{/nextPhase}}
   {{#combatPhase}}
     <li><button class='combat-phase'>Attack!</button></li>
+  {{/combatPhase}}
+  {{^combatPhase}}
+    {{#nextPhase}}
+      <li><button class='next-phase'>Next Phase</button></li>
+    {{/nextPhase}}
   {{/combatPhase}}
   {{#endTurn}}
     <li><button class='end-turn'>End Turn</button></li>

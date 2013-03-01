@@ -81,7 +81,7 @@ function (_, Backbone, config, View, Battlefield, Bank, Cards, TurnManager, Atta
 
     attack: function (deferred, card) {
       if (!this.turnManager.canAttack()) {
-        return deferred.reject('You can\'t cast a card in this phase!');
+        return deferred.reject('You can\'t attack during this phase!');
       }
 
       if (card.get('attack') === undefined) {
@@ -92,10 +92,16 @@ function (_, Backbone, config, View, Battlefield, Bank, Cards, TurnManager, Atta
         return deferred.reject('A card cant attack in the 1st turn');
       }
 
-      if (this.addToAttackQueue(card)) {
+      if (this.attackQueue.add(card)) {
+        this.turnManager.trigger('change');
         deferred.resolveWith(card);
       }
 
+    },
+
+    startCombat: function (deferred) {
+      this.attackQueue.attack();
+      this.turnManager.nextPhase();
     },
 
     damageEnemy: function (amount) {

@@ -4,8 +4,8 @@ define(['underscore', 'backbone'], function (_, Backbone) {
 
   var TurnManager = Backbone.Model.extend({
 
-    initialize: function () {
-      this.set('phase', null, {silent: true});
+    defaults: {
+      phase: null
     },
 
     newTurn: function () {
@@ -41,7 +41,7 @@ define(['underscore', 'backbone'], function (_, Backbone) {
     },
 
     canAttack: function () {
-      return this.isPhase('main-1', 'combat');
+      return this.isPhase('combat');
     }
 
   });

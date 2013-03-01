@@ -27,6 +27,7 @@ require(['app/models/game.js', 'underscore', 'om', 'fake_deck'],
   var fake = FakeDeck();
 
   var game = new Game()
+  window.game = game;
   game.setPlayers([luiz, larissa]);
 
   _.each(game.players, function (player) {

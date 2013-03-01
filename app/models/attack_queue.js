@@ -8,7 +8,7 @@ define(['underscore', 'backbone'], function (_, Backbone) {
 
     attack: function () {
       var queue = this.get('queue');
-      _.forEach(this.attackQueue, function (card) {
+      _.each(queue, function (card) {
         card.onAttack();
       });
       this.set('queue', []);
@@ -21,6 +21,7 @@ define(['underscore', 'backbone'], function (_, Backbone) {
 
       queue.push(card);
       this.set('queue', queue);
+      return true;
     },
 
     remove: function (card) {
@@ -30,6 +31,7 @@ define(['underscore', 'backbone'], function (_, Backbone) {
 
       queue.splice(index, 1);
       this.set('queue', queue);
+      return true;
     },
 
     hasAttackers: function () {

@@ -40,7 +40,7 @@ function ($, _, Backbone, om, Mustache, template) {
 
       if (this.model.player.get('current')) {
         attrs.nextPhase = phase === 'main-1' || phase === 'combat';
-        //attrs.combatPhase = this.model.attackQueue.length;
+        attrs.combatPhase = this.model.player.attackQueue.hasAttackers();
         attrs.endTurn = phase === 'main-2';
       }
 
