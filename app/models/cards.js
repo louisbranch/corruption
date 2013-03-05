@@ -49,8 +49,8 @@ function (_, Backbone, om, CardTypes, Effects) {
       promise.done(this.onCast, this.afterCast);
     },
 
-    attack: function () {
-      var promise = om(this.player, 'attack', this);
+    addToAttackQueue: function () {
+      var promise = om(this.player, 'addToAttackQueue', this);
       promise.done(this.tap);
     },
 

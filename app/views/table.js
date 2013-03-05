@@ -21,7 +21,7 @@ function ($, Backbone, _, Mustache, tableTemplate, handTemplate) {
     },
 
     attack: function () {
-      this.model.attack();
+      this.model.addToAttackQueue();
     },
 
     tap: function () {

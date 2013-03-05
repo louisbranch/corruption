@@ -77,7 +77,7 @@ function (_, Backbone, config, View, Battlefield, Bank, Cards, TurnManager, Atta
       deferred.resolveWith(card);
     },
 
-    attack: function (deferred, card) {
+    addToAttackQueue: function (deferred, card) {
       if (!this.turnManager.canAttack()) {
         return deferred.reject('You can\'t attack during this phase!');
       }

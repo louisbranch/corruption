@@ -16,14 +16,12 @@ define(['underscore', 'backbone'], function (_, Backbone) {
     },
 
     nextPhase: function () {
-      //this.verify({turn: true, phase: ['main-1', 'combat', 'main-2']});
       var currentPhase = this.get('phase');
       var nextPhase = PHASES[PHASES.indexOf(currentPhase) + 1];
       this.set('phase', nextPhase);
     },
 
     endTurn: function () {
-      //this.verify({turn: true});
       this.set('phase', PHASES[4]);
       this.set('phase', null);
       this.player.table.endTurn();
