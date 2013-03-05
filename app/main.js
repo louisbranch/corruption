@@ -24,14 +24,13 @@ require(['app/models/game.js', 'underscore', 'om', 'fake_deck'],
   var luiz = {id: 1, name: 'luiz', current: true};
   var larissa = {id: 2, name: 'larissa'};
 
-  var fake = FakeDeck();
 
   var game = new Game()
   window.game = game;
   game.setPlayers([luiz, larissa]);
 
   _.each(game.players, function (player) {
-    player.setDeck(fake);
+    player.setDeck(new FakeDeck());
     player.drawHand();
     player.render();
   });

@@ -53,14 +53,15 @@ define(['underscore', 'models/cards'], function (_, Cards) {
   };
 
   var Deck = function () {
+    var types = [land, drawer, damager, creature];
     var cards = [];
     _.times(30, function (i) {
-      _.each([land, drawer, damager, creature], function (type, j) {
-        cards.push(new Maker(type, {id: i + j}));
-      });
+      var type = types[_.random(0,3)];
+      cards.push(new Maker(type, {id: i}));
     });
     return cards;
   };
 
+  window.DECK = Deck;
   return Deck;
 });
