@@ -2,8 +2,10 @@ define(['underscore', 'backbone'], function (_, Backbone) {
 
   var AttackQueue = Backbone.Model.extend({
 
-    defaults: {
-      queue: []
+    defaults: function () {
+      return {
+        queue: []
+      };
     },
 
     attack: function () {

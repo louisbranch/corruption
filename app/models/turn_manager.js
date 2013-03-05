@@ -4,8 +4,10 @@ define(['underscore', 'backbone'], function (_, Backbone) {
 
   var TurnManager = Backbone.Model.extend({
 
-    defaults: {
-      phase: null
+    defaults: function () {
+      return {
+        phase: null
+      };
     },
 
     newTurn: function () {
