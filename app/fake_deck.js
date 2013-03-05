@@ -1,4 +1,8 @@
-define(['models/cards'], function (Cards) {
+define(['underscore', 'models/cards'], function (_, Cards) {
+
+  var Maker = function (type, attrs) {
+    return _.defaults(attrs || {}, type);
+  };
 
   var land = {
     name: 'ANAC',
@@ -49,16 +53,13 @@ define(['models/cards'], function (Cards) {
   };
 
   var Deck = function () {
-    var self = [];
-    var i = 0
-    while (i < 5) {
-      self.push(land);
-      self.push(drawer);
-      self.push(damager);
-      self.push(creature);
-      i += 1;
-    }
-    return self;
+    var cards = [];
+    _.times(30, function (i) {
+      _.each([land, drawer, damager, creature], function (type, j) {
+        cards.push(new Maker(type, {id: i + j}));
+      });
+    });
+    return cards;
   };
 
   return Deck;
