@@ -6,11 +6,13 @@ function (_, Backbone, om, CardTypes, Effects) {
     initialize: function () {
       this.type = CardTypes(this.get('type'));
       this.player = this.collection.player;
-      this.set('effects', this.get('effects').concat(this.type.effects));
+      this.set('effects', this.get('effects').concat(this.type.effects), {silent: true});
     },
 
-    defaults: {
-      states: []
+    defaults: function () {
+      return {
+        states: []
+      };
     },
 
     tap: function () {
@@ -60,7 +62,7 @@ function (_, Backbone, om, CardTypes, Effects) {
     },
 
     isSick: function () {
-      return this.get('states').indexOf('sick') !== -1;
+      return _.contains(this.get('states'), 'sick');
     }
 
   });
@@ -72,7 +74,7 @@ function (_, Backbone, om, CardTypes, Effects) {
       this.player = player;
     }
 
-  })
+  });
 
   var Library = Cards.extend({
 
@@ -88,6 +90,7 @@ function (_, Backbone, om, CardTypes, Effects) {
         n -= 1;
       }
     }
+
   });
 
   var Hand = Cards.extend();
