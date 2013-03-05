@@ -28,7 +28,7 @@ define(['underscore'], function (_) {
 
     destroy: function (card) {
       return function () {
-        card.destroy();
+        card.trigger('destroy');
       };
     },
 
