@@ -2,51 +2,39 @@ define(['underscore'], function (_) {
 
   var Effects = {
 
-    addFunds: function (card, options) {
+    addFunds: function (options) {
       var amount = options.amount;
-      return function () {
-        card.player.bank.addFunds(amount);
-      };
+      this.player.bank.addFunds(amount);
     },
 
-    drawCard: function (card, options) {
+    drawCard: function (options) {
       var amount = options.amount;
-      return function () {
-        card.player.drawCard(amount);
-      };
+      this.player.drawCard(amount);
     },
 
-    damageEnemy: function (card, options) {
+    damageEnemy: function (options) {
       var amount = options.amount;
       if (_.isFunction(options.amount)) {
-        amount = options.amount.apply(card);
+        amount = options.amount.apply(this);
       }
-      return function () {
-        card.player.damageEnemy(amount);
-      };
+      this.player.damageEnemy(amount);
     },
 
-    destroy: function (card) {
-      return function () {
-        card.trigger('destroy');
-      };
+    destroy: function () {
+      this.trigger('destroy');
     },
 
-    summonSickness: function (card) {
-      return function () {
-        var states = card.get('states')
-        states.push('sick');
-        card.set('states', states);
-      }
+    summonSickness: function () {
+      var states = this.get('states')
+      states.push('sick');
+      this.set('states', states);
     },
 
-    removeSickness: function (card) {
-      return function () {
-        var states = card.get('states')
-        var i = states.indexOf('sick');
-        states.splice(i,1);
-        card.set('states', states);
-      }
+    removeSickness: function () {
+      var states = this.get('states')
+      var i = states.indexOf('sick');
+      states.splice(i,1);
+      this.set('states', states);
     }
 
   };

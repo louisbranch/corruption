@@ -5,35 +5,12 @@ function (_, Backbone, om, CardTypes, Effects) {
 
     initialize: function () {
       this.type = CardTypes(this.get('type'));
-      this.setEffects();
       this.player = this.collection.player;
+      this.set('effects', this.get('effects').concat(this.type.effects));
     },
 
     defaults: {
       states: []
-    },
-
-    setEffects: function () {
-      var effects = this.get('effects').concat(this.type.effects);
-
-      var triggers = {
-        onCast: [],
-        onAttack: [],
-        afterCast: [],
-        afterAttack: [],
-        eachTurn: [],
-        endTurn: []
-      };
-
-      _.each(effects, function (effect) {
-        var e = Effects[effect.type](this, effect);
-        triggers[effect.trigger].push(e);
-      }, this);
-
-      _.each(triggers, function (value, key) {
-        this.set(key, value);
-      }, this);
-
     },
 
     tap: function () {
@@ -74,10 +51,12 @@ function (_, Backbone, om, CardTypes, Effects) {
       this.fireEffects('endTurn');
     },
 
-    fireEffects: function (type) {
-      _.each(this.get(type), function (effect) {
-        effect();
-      });
+    fireEffects: function (trigger) {
+      _.each(this.get('effects'), function (effect) {
+        if (effect.trigger === trigger) {
+          Effects[effect.type].call(this, effect);
+        }
+      }, this);
     },
 
     isSick: function () {
