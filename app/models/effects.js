@@ -20,8 +20,8 @@ define(['underscore'], function (_) {
       this.player.damageEnemy(amount);
     },
 
-    destroy: function () {
-      this.trigger('destroy');
+    bury: function () {;;
+      this.bury();
     },
 
     summonSickness: function () {

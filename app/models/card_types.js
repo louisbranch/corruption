@@ -33,7 +33,7 @@ define(function () {
     name: 'sorcery',
     effects: [
       {
-        type: 'destroy',
+        type: 'bury',
         trigger: 'afterCast'
       }
     ]

@@ -28,6 +28,10 @@ function (_, Backbone, om, CardTypes, Effects) {
       promise.done(this.onCast, this.afterCast);
     },
 
+    bury: function () {
+      this.player.buryCard(this);
+    },
+
     addToAttackQueue: function () {
       var promise = om(this.player, 'addToAttackQueue', this);
       promise.done(this.tap);

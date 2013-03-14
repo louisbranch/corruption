@@ -5,7 +5,6 @@ function ($, Backbone, _, Mustache, tableTemplate, handTemplate) {
     tagName: 'li',
 
     initialize: function () {
-      this.model.on('destroy', this.remove, this);
       this.model.on('tap', this.tap, this);
       this.model.on('untap', this.untap, this);
     },
