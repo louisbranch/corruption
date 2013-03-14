@@ -3,27 +3,43 @@
   overflow: hidden;
 }
 
-.table ul, .hand {
+.table ul, .hand, .graveyard {
   overflow: hidden;
   margin: 0;
 }
 
-.library, .graveyard, .hand li, .table li {
+.library, li.card {
   float: left;
+  display: block;
   margin: 10px;
   width: 140px;
   height: 180px;
   background-color: #ddd;
   list-style-type: none;
-  line-height: 180px;
   text-align: center;
   overflow: hidden;
 }
 
+li.card div {
+  margin-top: 70px;
+}
+
 .graveyard {
+  position: relative;
   float: right;
+  width: 140px;
+  height: 180px;
+  margin: 0;
+  padding: 10px;
   background-color: #333;
   color: #fff;
+}
+
+.graveyard li {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #333;
 }
 
 .hand li {

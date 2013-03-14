@@ -2,7 +2,10 @@ define(['jquery', 'underscore', 'backbone', 'mustache', 'text!templates/hand.mus
 function ($, _, Backbone, Mustache, template) {
 
   var View = Backbone.View.extend({
+
     tagName: 'li',
+
+    className: 'card',
 
     initialize: function () {
       this.model.bind('removedFromHand', this.remove, this);

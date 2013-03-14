@@ -1,8 +1,10 @@
 define(['jquery', 'backbone', 'underscore', 'mustache', 'text!templates/table.mustache', 'text!templates/hand.mustache'],
 function ($, Backbone, _, Mustache, tableTemplate, handTemplate) {
 
-  var View = Backbone.View.extend({
+  var Card = Backbone.View.extend({
     tagName: 'li',
+
+    className: 'card',
 
     initialize: function () {
       this.model.on('tap', this.tap, this);
@@ -47,7 +49,7 @@ function ($, Backbone, _, Mustache, tableTemplate, handTemplate) {
     },
 
     add: function (card) {
-      var view = new View({model: card});
+      var view = new Card({model: card});
       $list = this.findCardList(card);
       $list.append(view.render().el);
     },

@@ -1,23 +1,43 @@
-define(['jquery', 'backbone', 'text!templates/graveyard.mustache'],
-  function ($, Backbone, template) {
+define(['jquery', 'backbone', 'mustache', 'text!templates/hand.mustache', 'text!templates/graveyard.mustache'],
+function ($, Backbone, mustache, handTemplate, template) {
 
-    var View = Backbone.View.extend({
+  var Card = Backbone.View.extend({
 
-      className: 'graveyard',
+    tagName: 'li',
 
-      initialize: function () {
-        this.collection.on('change', this.render, this);
-      },
+    className: 'card',
 
-      render: function () {
-        this.$el.html(template);
-        return this;
-      }
+    render: function () {
+      var html = mustache.render(handTemplate, this.model.toJSON());
+      this.$el.html(html);
+      return this;
+    }
 
-    });
+  });
 
-    return View;
+  var Collection = Backbone.View.extend({
 
-  }
-);
+    tagName: 'ul',
 
+    className: 'graveyard',
+
+    initialize: function () {
+      this.collection.on('add', this.add, this);
+    },
+
+    render: function () {
+      var html = mustache.render(template);
+      this.$el.html(html);
+      return this;
+    },
+
+    add: function (card) {
+      var view = new Card({model: card});
+      this.$el.append(view.render().el);
+    }
+
+  });
+
+  return Collection;
+
+});
