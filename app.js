@@ -2,7 +2,7 @@ var express = require('express');
 var routes = require('./server/routes');
 var http = require('http');
 var path = require('path');
-var io = require('socket.io');
+var sockets = require('./server/sockets');
 
 var app = express();
 
@@ -29,4 +29,4 @@ app.get('/', routes.index);
 
 var server = http.createServer(app);
 server.listen(app.get('port'));
-io.listen(server);
+sockets.listen(server);

@@ -19,25 +19,23 @@ requirejs.config({
   preserveLicenseComments: false
 });
 
-require(['models/game.js', 'lodash', 'om', 'fake_deck'],
-  function (Game, _, om, FakeDeck) {
-
-  var luiz = {id: 1, name: 'luiz', current: true};
-  var larissa = {id: 2, name: 'larissa'};
-
+require(['models/game.js', 'lodash', 'om', 'fake_deck', 'sockets'],
+  function (Game, _, om, FakeDeck, sockets) {
 
   var game = new Game()
-  window.game = game;
-  game.setPlayers([luiz, larissa]);
 
-  _.each(game.players, function (player) {
-    player.setDeck(new FakeDeck());
-    player.drawHand();
-    player.render();
+  sockets.on('setPlayers', function (msg) {
+    game.setPlayers(msg.players);
   });
 
-  var p1 = game.players[0];
-  game.turn.player = p1;
-  p1.newTurn();
+  //_.each(game.players, function (player) {
+  //  player.setDeck(new FakeDeck());
+  //  player.drawHand();
+  //  player.render();
+  //});
+
+  //var p1 = game.players[0];
+  //game.turn.player = p1;
+  //p1.newTurn();
 
 });
