@@ -24,18 +24,6 @@ require(['models/game.js', 'lodash', 'om', 'fake_deck', 'sockets'],
 
   var game = new Game()
 
-  sockets.on('setPlayers', function (msg) {
-    game.setPlayers(msg.players);
-  });
-
-  //_.each(game.players, function (player) {
-  //  player.setDeck(new FakeDeck());
-  //  player.drawHand();
-  //  player.render();
-  //});
-
-  //var p1 = game.players[0];
-  //game.turn.player = p1;
-  //p1.newTurn();
+  sockets.on('setPlayers', game.setPlayers);
 
 });

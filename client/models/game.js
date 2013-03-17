@@ -8,20 +8,18 @@ function (Backbone, _, Player) {
       player: null
     },
 
-    setPlayers: function (users) {
-      var players = _.map(users, function (user) {
-        player = new Player(user);
-        player.game = this;
-        return player;
+    setPlayers: function (players) {
+      _.each(players, function (value, key) {
+        this[key] = new Player(value);
+        this[key].game = this;
       }, this);
-      this.players = players;
     },
 
     getEnemy: function (player) {
-      if (player === this.players[0]) {
-        return this.players[1];
+      if (player === this.p1) {
+        return this.p2;
       } else {
-        return this.players[0];
+        return this.p1;
       }
     },
 
@@ -29,9 +27,9 @@ function (Backbone, _, Player) {
       return player === this.turn.player;
     },
 
-    newTurn: function () {
+    newTurn: function (playerNum) {
       this.turn.counter += 1;
-      var newPlayer = this.getEnemy(this.turn.player);
+      var newPlayer = this[playerNum];
       this.turn.player = newPlayer;
       newPlayer.newTurn();
     }

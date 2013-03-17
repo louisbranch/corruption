@@ -3,17 +3,28 @@ var io = require('socket.io');
 exports.listen = function (server) {
   var sockets = io.listen(server).sockets;
 
-  var luiz = {id: 1, name: 'luiz', current: true};
-  var larissa = {id: 2, name: 'larissa'};
+  var p1 = {id: 1, name: 'luiz'};
+  var p2 = {id: 2, name: 'larissa'};
 
   sockets.on('connection', function (socket) {
 
-    socket.emit('setPlayers', { players: [luiz, larissa] });
+    //socket.set('pid', pid++);
 
-    socket.on('my other event', function (data) {
-      console.log(data);
+    socket.on('game:join', function (data) {
     });
+
+    socket.on('game:start', function (data) {
+      socket.emit('setPlayers', { p1: p1, p2: p2 });
+    });
+
   });
+
+  //_.each(game.players, function (player) {
+  //  player.setDeck(new FakeDeck());
+  //  player.drawHand();
+  //  player.render();
+  //});
+
 
 };
 
