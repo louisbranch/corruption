@@ -1,4 +1,4 @@
-define(['underscore', 'models/cards'], function (_, Cards) {
+define(['lodash', 'models/cards'], function (_, Cards) {
 
   var Maker = function (type, attrs) {
     return _.defaults(attrs || {}, type);

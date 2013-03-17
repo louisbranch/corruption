@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone', 'mustache', 'text!templates/hand.mustache'],
+define(['jquery', 'lodash', 'backbone', 'mustache', 'text!templates/hand.mustache'],
 function ($, _, Backbone, Mustache, template) {
 
   var View = Backbone.View.extend({

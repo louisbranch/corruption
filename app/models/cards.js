@@ -1,4 +1,4 @@
-define(['underscore', 'backbone', 'om', 'models/card_types', 'models/effects'],
+define(['lodash', 'backbone', 'om', 'models/card_types', 'models/effects'],
 function (_, Backbone, om, CardTypes, Effects) {
 
   var Card = Backbone.Model.extend({

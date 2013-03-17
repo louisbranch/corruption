@@ -1,4 +1,4 @@
-define(['underscore', 'backbone'], function (_, Backbone) {
+define(['lodash', 'backbone'], function (_, Backbone) {
 
   var AttackQueue = Backbone.Model.extend({
 

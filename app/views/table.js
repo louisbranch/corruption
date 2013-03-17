@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'underscore', 'mustache', 'text!templates/table.mustache', 'text!templates/hand.mustache'],
+define(['jquery', 'backbone', 'lodash', 'mustache', 'text!templates/table.mustache', 'text!templates/hand.mustache'],
 function ($, Backbone, _, Mustache, tableTemplate, handTemplate) {
 
   var Card = Backbone.View.extend({

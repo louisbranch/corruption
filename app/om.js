@@ -1,4 +1,4 @@
-define(['jquery', 'underscore'], function ($, _) {
+define(['jquery', 'lodash'], function ($, _) {
 
   var entonate = function (player, event) {
     var deferred = $.Deferred();

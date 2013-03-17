@@ -1,4 +1,4 @@
-define(['underscore', 'backbone', 'config', 'views/player', 'models/battlefield', 'models/bank', 'models/cards', 'models/turn_manager', 'models/attack_queue'],
+define(['lodash', 'backbone', 'config', 'views/player', 'models/battlefield', 'models/bank', 'models/cards', 'models/turn_manager', 'models/attack_queue'],
 function (_, Backbone, config, View, Battlefield, Bank, Cards, TurnManager, AttackQueue) {
 
   var Player = Backbone.Model.extend({

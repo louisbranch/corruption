@@ -2,23 +2,23 @@ requirejs.config({
   baseUrl: 'app',
   paths: {
     'jquery': 'lib/jquery-1.8.2',
-    'underscore': 'lib/underscore',
+    'lodash': 'lib/lodash',
     'backbone': 'lib/backbone',
     'mustache': 'lib/mustache',
     'text': 'lib/text'
   },
   shim: {
-    'underscore': {
+    'lodash': {
       exports: '_'
     },
     'backbone': {
-      deps: ['underscore', 'jquery'],
+      deps: ['lodash', 'jquery'],
       exports: 'Backbone'
     }
   }
 });
 
-require(['app/models/game.js', 'underscore', 'om', 'fake_deck'],
+require(['app/models/game.js', 'lodash', 'om', 'fake_deck'],
   function (Game, _, om, FakeDeck) {
 
   var luiz = {id: 1, name: 'luiz', current: true};

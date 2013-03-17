@@ -1,4 +1,4 @@
-define(['backbone', 'underscore', 'models/player'],
+define(['backbone', 'lodash', 'models/player'],
 function (Backbone, _, Player) {
 
   var Game = Backbone.Model.extend({

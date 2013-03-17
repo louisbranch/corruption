@@ -1,4 +1,4 @@
-define(['underscore', 'backbone'], function (_, Backbone) {
+define(['lodash', 'backbone'], function (_, Backbone) {
 
   var PHASES = ['beginning', 'main-1', 'combat', 'main-2', 'ending'];
 
