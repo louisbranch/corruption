@@ -13,7 +13,7 @@ module.exports = function(grunt) {
     regarde: {
       app: {
         files: ['app/**/*.js', '!app/**/*.js.swp'],
-        tasks: ['livereload']
+        tasks: ['livereload', 'requirejs']
       }
     },
     livereload: {
@@ -21,6 +21,16 @@ module.exports = function(grunt) {
         port: 35729,
         middleware: function(connect, options) {
           return [lrSnippet, folderMount(connect, '.')]
+        }
+      }
+    },
+    requirejs: {
+      compile: {
+        options: {
+          baseUrl: 'app',
+          name: 'main',
+          mainConfigFile: 'app/main.js',
+          out: 'public/javascripts/app.js'
         }
       }
     }
@@ -33,5 +43,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-regarde');
   grunt.loadNpmTasks('grunt-contrib-livereload');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-requirejs');
 
 };

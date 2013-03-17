@@ -15,10 +15,11 @@ requirejs.config({
       deps: ['lodash', 'jquery'],
       exports: 'Backbone'
     }
-  }
+  },
+  preserveLicenseComments: false
 });
 
-require(['app/models/game.js', 'lodash', 'om', 'fake_deck'],
+require(['models/game.js', 'lodash', 'om', 'fake_deck'],
   function (Game, _, om, FakeDeck) {
 
   var luiz = {id: 1, name: 'luiz', current: true};
