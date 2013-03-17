@@ -2,16 +2,17 @@
   "name": "corruption",
   "version": "0.0.1",
   "private": true,
-  "description" : "Card Game (WIP)",
+  "description": "Card Game (WIP)",
   "scripts": {
     "start": "node server"
   },
   "dependencies": {
+    "express": "~3.1.0"
   },
-  "devDependencies" : {
-    "grunt" : "> 0.4.0",
-    "grunt-contrib-livereload" : "> 0.1.0",
-    "grunt-contrib-watch" : "> 0.1.4",
+  "devDependencies": {
+    "grunt": "> 0.4.0",
+    "grunt-contrib-livereload": "> 0.1.0",
+    "grunt-contrib-watch": "> 0.1.4",
     "grunt-regarde": "> 0.1.1"
   }
 }
