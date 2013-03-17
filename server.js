@@ -2,6 +2,7 @@ var express = require('express');
 var routes = require('./routes');
 var http = require('http');
 var path = require('path');
+var io = require('socket.io');
 
 var app = express();
 
@@ -26,4 +27,6 @@ app.configure('development', function(){
 
 app.get('/', routes.index);
 
-http.createServer(app).listen(app.get('port'));
+var server = http.createServer(app);
+server.listen(app.get('port'));
+io.listen(server);
