@@ -1,29 +1,46 @@
 var io = require('socket.io');
+var _ = require('lodash');
 
 exports.listen = function (server) {
   var sockets = io.listen(server).sockets;
 
-  var p1 = {id: 1, name: 'luiz'};
-  var p2 = {id: 2, name: 'larissa'};
+  var players = [
+    {id: 1, name: 'luiz'},
+    {id: 2, name: 'larissa'}
+  ];
+  var p1 = {};
+  var p2 = {};
 
   sockets.on('connection', function (socket) {
 
-    //socket.set('pid', pid++);
-
-    socket.on('game:join', function (data) {
+    socket.on('game:join', function () {
+      if (!p1.socket) {
+        p1.socket = socket;
+      } else if (!p2.socket) {
+        p2.socket = socket;
+      }
     });
 
     socket.on('game:start', function (data) {
-      socket.emit('setPlayers', { p1: p1, p2: p2 });
+      if (p1.socket && p2.socket) {
+        p1.socket.emit('game:setPlayers', { p1: _.extend({current: true}, players[0]), p2: players[1] });
+        p2.socket.emit('game:setPlayers', { p1: players[0], p2: _.extend({current: true}, players[1]) });
+
+        p1.socket.emit('player:setDeck', 'p1');
+        p1.socket.emit('player:setDeck', 'p2');
+        p2.socket.emit('player:setDeck', 'p1');
+        p2.socket.emit('player:setDeck', 'p2');
+
+        p1.socket.emit('players:render');
+        p2.socket.emit('players:render');
+
+        p1.socket.emit('players:drawHand');
+        p2.socket.emit('players:drawHand');
+
+      }
     });
 
   });
-
-  //_.each(game.players, function (player) {
-  //  player.setDeck(new FakeDeck());
-  //  player.drawHand();
-  //  player.render();
-  //});
 
 
 };
