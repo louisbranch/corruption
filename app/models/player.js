@@ -74,7 +74,7 @@ function (_, Backbone, config, View, Battlefield, Bank, Cards, TurnManager, Atta
 
       this.hand.remove(card);
       this.table.add(card);
-      deferred.resolveWith(card);
+      deferred.resolve();
     },
 
     buryCard: function (card) {
@@ -97,7 +97,7 @@ function (_, Backbone, config, View, Battlefield, Bank, Cards, TurnManager, Atta
 
       if (this.attackQueue.add(card)) {
         this.turnManager.trigger('change');
-        deferred.resolveWith(card);
+        deferred.resolve();
       }
 
     },

@@ -25,7 +25,7 @@ function (_, Backbone, om, CardTypes, Effects) {
 
     cast: function () {
       var promise = om(this.player, 'castCard', this);
-      promise.done(this.onCast, this.afterCast);
+      promise.done(this.onCast.bind(this), this.afterCast.bind(this));
     },
 
     bury: function () {
@@ -34,7 +34,7 @@ function (_, Backbone, om, CardTypes, Effects) {
 
     addToAttackQueue: function () {
       var promise = om(this.player, 'addToAttackQueue', this);
-      promise.done(this.tap);
+      promise.done(this.tap.bind(this));
     },
 
     onCast: function () {
