@@ -1,5 +1,5 @@
 requirejs.config({
-  baseUrl: 'app',
+  baseUrl: 'client',
   paths: {
     'jquery': 'lib/jquery-1.8.2',
     'lodash': 'lib/lodash',

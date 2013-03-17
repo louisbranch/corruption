@@ -3,7 +3,7 @@
   <head>
     <title>{{ title }}</title>
     <link rel='stylesheet' href='/stylesheets/main.css' />
-    <script data-main='javascripts/app' src='javascripts/require.js'></script>
+    <script data-main='javascripts/client' src='javascripts/require.js'></script>
   </head>
   <body>
     <h1>{{ title }}</h1>

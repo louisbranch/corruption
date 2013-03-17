@@ -12,7 +12,7 @@ module.exports = function(grunt) {
     },
     regarde: {
       app: {
-        files: ['app/**/*.js', '!app/**/*.js.swp'],
+        files: ['client/**/*.js', '!client/**/*.js.swp'],
         tasks: ['requirejs', 'livereload']
       }
     },
@@ -27,10 +27,10 @@ module.exports = function(grunt) {
     requirejs: {
       compile: {
         options: {
-          baseUrl: 'app',
+          baseUrl: 'client',
           name: 'main',
-          mainConfigFile: 'app/main.js',
-          out: 'public/javascripts/app.js'
+          mainConfigFile: 'client/main.js',
+          out: 'server/public/javascripts/client.js'
         }
       }
     }
