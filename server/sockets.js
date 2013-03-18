@@ -24,8 +24,10 @@ exports.listen = function (server) {
     socket.on('login', function (player) {
       if (player === 'p1') {
         p1.socket = socket;
+        socket.set('pid', 'p1');
       } else if (player === 'p2') {
         p2.socket = socket;
+        socket.set('pid', 'p2');
       }
 
       if (p1.socket && p2.socket) {
@@ -46,12 +48,13 @@ exports.listen = function (server) {
     socket.on('startCombat', function (data) {});
     socket.on('addToAttackQueue', function (data) {});
 
-  });
+    socket.on('castCard', function (data) {
+      socket.get('pid', function (pid) {
+        socket.broadcast.emit('player:castCard', pid);
+      });
+    });
 
-  sockets.on('castCard', function (socket, data) {
-    socket.broadcast.emit('player:castCard', socket.get('pid'));
   });
-
 
 };
 
