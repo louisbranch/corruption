@@ -21,6 +21,7 @@ define(['jquery', 'lodash', 'sockets'], function ($, _, sockets) {
     args.splice(0, 0, deferred);
 
     deferred.done(function () {
+      console.log(event, args);
       sockets.emit(event, args);
     });
 

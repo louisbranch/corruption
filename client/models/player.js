@@ -30,12 +30,16 @@ function (_, Backbone, config, View, Battlefield, Bank, Cards, TurnManager, Atta
 
     nextPhase: function (deferred) {
       this.turnManager.nextPhase();
-      deferred.resolve();
+      if (deferred) {
+        deferred.resolve();
+      }
     },
 
     endTurn: function (deferred) {
       this.turnManager.endTurn();
-      deferred.resolve();
+      if (deferred) {
+        deferred.resolve();
+      }
     },
 
     setDeck: function (cards) {

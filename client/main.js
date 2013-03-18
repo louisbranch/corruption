@@ -23,11 +23,13 @@ requirejs.config({
   }
 });
 
-require(['models/game.js', 'lodash', 'om', 'sockets', 'fake_deck'],
-  function (Game, _, om, sockets, FakeDeck) {
+require(['views/login', 'models/game.js', 'lodash', 'om', 'sockets', 'fake_deck'],
+  function (LoginView, Game, _, om, sockets, FakeDeck) {
+
+  var login = new LoginView();
+  login.render();
 
   var game = new Game()
-  window.game = game;
 
   sockets.on('game:setPlayers', game.setPlayers.bind(game));
   sockets.on('game:newTurn', game.newTurn.bind(game));
@@ -50,5 +52,9 @@ require(['models/game.js', 'lodash', 'om', 'sockets', 'fake_deck'],
 
   sockets.emit('game:join');
   sockets.emit('game:start');
+
+  sockets.on('player:castCard', function (pid) {
+    console.log(pid);
+  });
 
 });
