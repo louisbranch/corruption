@@ -1,4 +1,4 @@
-define(['jquery', 'lodash'], function ($, _) {
+define(['jquery', 'lodash', 'sockets'], function ($, _, sockets) {
 
   var entonate = function (player, event) {
     var deferred = $.Deferred();
@@ -17,12 +17,12 @@ define(['jquery', 'lodash'], function ($, _) {
       return deferred;
     }
 
-    deferred.done(function () {
-      console.log(player.get('id'), event);
-    });
-
     var args = _.toArray(arguments).splice(2);
     args.splice(0, 0, deferred);
+
+    deferred.done(function () {
+      sockets.emit(event, args);
+    });
 
     setTimeout(function () {
       player[event].apply(player, args);

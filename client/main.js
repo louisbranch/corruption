@@ -30,6 +30,7 @@ require(['models/game.js', 'lodash', 'om', 'sockets', 'fake_deck'],
   window.game = game;
 
   sockets.on('game:setPlayers', game.setPlayers.bind(game));
+  sockets.on('game:newTurn', game.newTurn.bind(game));
 
   sockets.on('players:drawHand', function () {
     _.each(['p1', 'p2'], function (pid) {

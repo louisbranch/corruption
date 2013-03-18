@@ -15,9 +15,11 @@ exports.listen = function (server) {
 
     socket.on('game:join', function () {
       if (!p1.socket) {
+        socket.set('pid', 'p1');
         p1.socket = socket;
       } else if (!p2.socket) {
         p2.socket = socket;
+        socket.set('pid', 'p2');
       }
     });
 
@@ -37,11 +39,20 @@ exports.listen = function (server) {
         p1.socket.emit('players:drawHand');
         p2.socket.emit('players:drawHand');
 
+        p1.socket.emit('game:newTurn', 'p1');
+        p2.socket.emit('game:newTurn', 'p1');
+
       }
     });
 
-  });
+    // TODO
+    socket.on('castCard', function (data) {});
+    socket.on('nextPhase', function (data) {});
+    socket.on('endTurn', function (data) {});
+    socket.on('startCombat', function (data) {});
+    socket.on('addToAttackQueue', function (data) {});
 
+  });
 
 };
 
