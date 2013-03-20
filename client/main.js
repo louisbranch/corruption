@@ -50,9 +50,6 @@ require(['views/login', 'models/game.js', 'lodash', 'om', 'sockets', 'fake_deck'
     })
   });
 
-  sockets.emit('game:join');
-  sockets.emit('game:start');
-
   sockets.on('player:castCard', function (pid) {
     console.log(pid, 'kukow');
   });

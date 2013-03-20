@@ -1,45 +1,18 @@
 var io = require('socket.io');
 var _ = require('lodash');
-
-var broadcast = function (event, args) {
-};
+var room = require('./game/room');
 
 exports.listen = function (server) {
   var sockets = io.listen(server).sockets;
+  room = room.bind(io);
 
-  var players = [
-    {id: 1, name: 'luiz'},
-    {id: 2, name: 'larissa'}
-  ];
-  var p1 = {};
-  var p2 = {};
-
-  var broadcast = function (event, args) {
-    p1.socket.emit(event, args);
-    p2.socket.emit(event, args);
-  };
+  var p1 = {id: 1, name: 'luiz'};
+  var p2 = {id: 2, name: 'larissa'};
 
   sockets.on('connection', function (socket) {
 
-    socket.on('login', function (player) {
-      if (player === 'p1') {
-        p1.socket = socket;
-        socket.set('pid', 'p1');
-      } else if (player === 'p2') {
-        p2.socket = socket;
-        socket.set('pid', 'p2');
-      }
-
-      if (p1.socket && p2.socket) {
-        p1.socket.emit('game:setPlayers', { p1: _.extend({current: true}, players[0]), p2: players[1] });
-        p2.socket.emit('game:setPlayers', { p1: players[0], p2: _.extend({current: true}, players[1]) });
-
-        broadcast('player:setDeck', 'p1');
-        broadcast('player:setDeck', 'p2');
-        broadcast('players:render');
-        broadcast('players:drawHand');
-        broadcast('game:newTurn', 'p1');
-      }
+    socket.on('game:join', function (data) {
+      room(data.room).join(socket);
     });
 
     // TODO
@@ -50,6 +23,7 @@ exports.listen = function (server) {
 
     socket.on('castCard', function (data) {
       socket.get('pid', function (pid) {
+        console.log(pid);
         socket.broadcast.emit('player:castCard', pid);
       });
     });
@@ -57,4 +31,3 @@ exports.listen = function (server) {
   });
 
 };
-

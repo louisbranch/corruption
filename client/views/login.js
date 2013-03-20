@@ -4,8 +4,7 @@ function ($, Backbone, sockets, template) {
   var View = Backbone.View.extend({
 
     events: {
-      'click .login-player1' : 'loginPlayer1',
-      'click .login-player2' : 'loginPlayer2'
+      'click button' : 'join'
     },
 
     render: function () {
@@ -14,13 +13,8 @@ function ($, Backbone, sockets, template) {
       return this;
     },
 
-    loginPlayer1: function () {
-      sockets.emit('login', 'p1');
-      this.remove();
-    },
-
-    loginPlayer2: function () {
-      sockets.emit('login', 'p2');
+    join: function () {
+      sockets.emit('game:join', {room: 'game1'});
       this.remove();
     }
 

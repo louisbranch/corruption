@@ -25,9 +25,9 @@ define(['jquery', 'lodash', 'sockets'], function ($, _, sockets) {
       sockets.emit(event, args);
     });
 
-    setTimeout(function () {
+    _.defer(function () {
       player[event].apply(player, args);
-    }, 0);
+    });
 
     return deferred;
   };
