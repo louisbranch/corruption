@@ -1,6 +1,6 @@
 var io = require('socket.io');
 var _ = require('lodash');
-var room = require('./game/room');
+var room = require('./lib/room');
 
 exports.listen = function (server) {
   var sockets = io.listen(server).sockets;
@@ -13,6 +13,9 @@ exports.listen = function (server) {
 
     socket.on('game:join', function (data) {
       room(data.room).join(socket);
+    });
+
+    socket.on('game:start', function (data) {
     });
 
     // TODO

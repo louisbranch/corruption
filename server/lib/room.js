@@ -17,24 +17,17 @@ exports.bind = function (io) {
 var Room = function (name, sockets) {
   this.name = name;
   this.sockets = sockets;
+  this.game = new Game();
 };
 
 var fn = Room.prototype;
 
-fn.join = function (socket) {
+fn.join = function (socket, player) {
   socket.join(this.name);
-  this.addPlayer(socket);
+  this.addPlayer(socket, player);
 };
 
 fn.broadcast = function (event, data) {
   var emit = this.sockets.in(this.name);
   emit(event, data);
 };
-
-fn.addPlayer = function (socket) {
-  if (!this.p1) { return this.p1 = socket; }
-  if (!this.p2) { return this.p2 = socket; }
-};
-
-find = function (name) {
-}
