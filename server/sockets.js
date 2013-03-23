@@ -10,8 +10,9 @@ exports.listen = function (server) {
   var p2 = {id: 2, name: 'larissa'};
 
   sockets.on('connection', function (socket) {
+    socket.emit('socket:connected');
 
-    socket.on('game:join', function (data) {
+    socket.on('socket:join:room', function (data) {
       room(data.room).join(socket);
     });
 

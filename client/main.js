@@ -23,35 +23,12 @@ requirejs.config({
   }
 });
 
-require(['views/login', 'models/game.js', 'lodash', 'om', 'sockets', 'fake_deck'],
-  function (LoginView, Game, _, om, sockets, FakeDeck) {
+require(['lodash', 'backbone', 'sockets', 'hub', 'views/login'],
+function(_, Backbone, sockets, Hub, LoginView) {
 
-  var login = new LoginView();
-  login.render();
+  var reactor = _.extend({}, Backbone.Events);
+  var hub = new Hub(reactor, sockets);
 
-  var game = new Game()
-
-  sockets.on('game:setPlayers', game.setPlayers.bind(game));
-  sockets.on('game:newTurn', game.newTurn.bind(game));
-
-  sockets.on('players:drawHand', function () {
-    _.each(['p1', 'p2'], function (pid) {
-      game[pid].drawHand();
-    })
-  });
-
-  sockets.on('player:setDeck', function (pid) {
-    game[pid].setDeck(new FakeDeck());
-  });
-
-  sockets.on('players:render', function () {
-    _.each(['p1', 'p2'], function (pid) {
-      game[pid].render();
-    })
-  });
-
-  sockets.on('player:castCard', function (pid) {
-    console.log(pid, 'kukow');
-  });
+  var login = new LoginView({hub: hub});
 
 });

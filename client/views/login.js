@@ -3,6 +3,11 @@ function ($, Backbone, sockets, template) {
 
   var View = Backbone.View.extend({
 
+    initialize: function (options) {
+      _.extend(this, _.pick(options, 'hub'));
+      this.hub.sub('socket:connected', this.render.bind(this));
+    },
+
     events: {
       'click button' : 'join'
     },
@@ -14,7 +19,7 @@ function ($, Backbone, sockets, template) {
     },
 
     join: function () {
-      sockets.emit('game:join', {room: 'game1'});
+      this.hub.pub('socket:join:room', {room: 'game1'});
       this.remove();
     }
 
