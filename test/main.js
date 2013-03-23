@@ -1,23 +1,23 @@
 requirejs.config({
-  baseUrl: 'js',
+  baseUrl: 'client',
   paths: {
     'jquery': 'lib/jquery-1.8.2',
-    'underscore': 'lib/underscore',
+    'lodash': 'lib/lodash',
     'backbone': 'lib/backbone',
     'mustache': 'lib/mustache',
     'text': 'lib/text'
   },
   shim: {
-    'underscore': {
+    'lodash': {
       exports: '_'
     },
     'backbone': {
-      deps: ['underscore', 'jquery'],
+      deps: ['lodash', 'jquery'],
       exports: 'Backbone'
     }
   }
 });
 QUnit.config.autostart = false;
-require(['/test/models/croupier.test.js'], function () {
+require(['/test/hub.test.js'], function () {
   QUnit.start();
 });
