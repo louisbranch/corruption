@@ -3,6 +3,8 @@ function ($, Backbone, template) {
 
   var View = Backbone.View.extend({
 
+    className: 'login',
+
     initialize: function (options) {
       _.extend(this, _.pick(options, 'hub'));
     },
@@ -13,7 +15,7 @@ function ($, Backbone, template) {
 
     render: function () {
       this.$el.html(template);
-      $('body').append(this.$el);
+      $('#login').replaceWith(this.$el);
       return this;
     },
 
