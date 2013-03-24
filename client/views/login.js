@@ -21,7 +21,7 @@ function ($, Backbone, template) {
 
     join: function () {
       this.hub.pub('socket:join:room', {room: 'game1'});
-      this.remove();
+      //this.remove();
     }
 
   });

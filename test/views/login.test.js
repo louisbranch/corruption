@@ -13,7 +13,7 @@ define(['jquery', 'views/login'], function ($, loginView) {
     expect(1);
     var hub = {sub: sinon.spy()};
     loginView.register(hub);
-    ok(hub.sub.calledWith('socket:connected'));
+    sinon.assert.calledWith(hub.sub, 'socket:connected');
   });
 
   test('socket connected event render new view', function (){
@@ -25,8 +25,8 @@ define(['jquery', 'views/login'], function ($, loginView) {
     View.returns({render: render});
     loginView.register(hub);
 
-    ok(View.calledWithNew({hub: hub}))
-    ok(render.getCall());
+    sinon.assert.calledWithNew(View, {hub: hub});
+    sinon.assert.called(render);
   });
 
   module('login view rendering');
@@ -37,6 +37,15 @@ define(['jquery', 'views/login'], function ($, loginView) {
     var view = new loginView.View();
     view.render();
     ok($('.login').length);
+  });
+
+  test('join the game', function () {
+    expect(1);
+    var hub = {sub: sinon.spy(), pub: sinon.spy()};
+    var view = new loginView.View({hub: hub});
+    view.render();
+    $('.login button').click();
+    sinon.assert.calledWith(hub.pub, 'socket:join:room', {room: 'game1'});
   });
 
 });
