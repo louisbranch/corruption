@@ -1,3 +1,5 @@
+var Game = require('./game').Game;
+
 exports.bind = function (io) {
   var sockets = io.sockets;
   var rooms = {};
@@ -14,17 +16,17 @@ exports.bind = function (io) {
   return find;
 }
 
-var Room = function (name, sockets) {
+function Room (name, sockets) {
   this.name = name;
   this.sockets = sockets;
-  this.game = new Game();
+  this.game = new Game(this);
 };
 
 var fn = Room.prototype;
 
 fn.join = function (socket, player) {
   socket.join(this.name);
-  this.addPlayer(socket, player);
+  this.game.add(socket, player);
 };
 
 fn.broadcast = function (event, data) {
