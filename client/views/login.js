@@ -1,11 +1,10 @@
-define(['jquery', 'backbone', 'sockets', 'text!templates/login.mustache'],
-function ($, Backbone, sockets, template) {
+define(['jquery', 'backbone', 'text!templates/login.mustache'],
+function ($, Backbone, template) {
 
   var View = Backbone.View.extend({
 
     initialize: function (options) {
       _.extend(this, _.pick(options, 'hub'));
-      this.hub.sub('socket:connected', this.render.bind(this));
     },
 
     events: {
@@ -25,6 +24,13 @@ function ($, Backbone, sockets, template) {
 
   });
 
-  return View;
+  function register (hub) {
+    hub.sub('socket:connected', function () {
+      var view = new View({hub: hub});
+      view.render();
+    });
+  };
+
+  return { register: register };
 
 });

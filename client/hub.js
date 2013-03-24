@@ -1,7 +1,7 @@
 define(['lodash', 'backbone'],
 function (_, Backbone) {
 
-  var Hub = function (mainEventReactor, socketEventReactor) {
+  function Hub (mainEventReactor, socketEventReactor) {
     var reactor = mainEventReactor;
     var socket = socketEventReactor;
 

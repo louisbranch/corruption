@@ -16,19 +16,14 @@ requirejs.config({
       exports: 'Backbone'
     }
   },
-  preserveLicenseComments: false,
-  optimize: 'none',
-  uglify: {
-    beautify: true
-  }
+  optimize: 'none'
 });
 
-require(['lodash', 'backbone', 'sockets', 'hub', 'views/login'],
-function(_, Backbone, sockets, Hub, LoginView) {
+require(['lodash', 'backbone', 'sockets', 'hub', 'events_register'],
+function(_, Backbone, sockets, Hub, eventsRegister) {
 
   var reactor = _.extend({}, Backbone.Events);
   var hub = new Hub(reactor, sockets);
 
-  var login = new LoginView({hub: hub});
-
+  eventsRegister.init(hub);
 });
