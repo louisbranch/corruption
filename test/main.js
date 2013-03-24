@@ -18,6 +18,6 @@ requirejs.config({
   }
 });
 QUnit.config.autostart = false;
-require(['/test/hub.test.js'], function () {
+require(['/test/hub.test.js', '/test/views/login.test.js'], function () {
   QUnit.start();
 });

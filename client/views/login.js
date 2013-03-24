@@ -26,11 +26,16 @@ function ($, Backbone, template) {
 
   function register (hub) {
     hub.sub('socket:connected', function () {
-      var view = new View({hub: hub});
+      var view = new login.View({hub: hub});
       view.render();
     });
   };
 
-  return { register: register };
+  var login = {
+    register: register,
+    View: View
+  };
+
+  return login;
 
 });
