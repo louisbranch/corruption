@@ -20,7 +20,7 @@ function ($, Backbone, template) {
     },
 
     join: function () {
-      this.hub.pub('socket:join:room', {room: 'game1'});
+      this.hub.pub('socket:join:game', {game: 'game1'});
       //this.remove();
     }
 
