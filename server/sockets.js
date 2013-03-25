@@ -10,7 +10,7 @@ exports.listen = function (server) {
     socket.emit('socket:connected');
 
     socket.on('socket:join:game', function (data) {
-      game(data.game).join(socket);
+      game(data.game).join(socket, data);
     });
 
   });

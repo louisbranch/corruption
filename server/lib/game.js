@@ -23,11 +23,11 @@ function Game (id, sockets) {
 
 var fn = Game.prototype;
 
-fn.join = function (socket, player) {
+fn.join = function (socket, data) {
   if (this.players.length >= MAXPLAYERS) { return; }
   socket.join(this.id);
   this.players.push({ socket: socket })
-  broadcast('socket:game:joined', {player: player})
+  this.broadcast('socket:game:joined', {player: data.player})
 };
 
 fn.broadcast = function (event, data) {
