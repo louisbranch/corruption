@@ -27,7 +27,7 @@ function Game (id, sockets) {
 var fn = Game.prototype;
 
 fn.join = function (socket, data) {
-  if (this.players.length >= MAXPLAYERS) { return; }
+  if (this.players.length === MAXPLAYERS) { return; }
   if (this.hasSocket(socket)) { return; }
 
   var player = this.addPlayer(socket);

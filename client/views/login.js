@@ -20,8 +20,8 @@ function ($, Backbone, template) {
     },
 
     join: function () {
-      this.hub.pub('socket:join:game', {game: 'game1'});
-      //this.remove();
+      this.hub.pub('socket:game:join', {game: 'game1'});
+      this.hub.sub('socket:game:joined', this.remove.bind(this));
     }
 
   });

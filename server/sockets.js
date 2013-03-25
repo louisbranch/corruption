@@ -9,7 +9,7 @@ exports.listen = function (server) {
   sockets.on('connection', function (socket) {
     socket.emit('socket:connected');
 
-    socket.on('socket:join:game', function (data) {
+    socket.on('socket:game:join', function (data) {
       game(data.game).join(socket, data);
     });
 
