@@ -8,6 +8,12 @@ function (_, Backbone) {
 
   });
 
-  return Player;
+  function register (hub) {
+  };
+
+  var module = {
+    register: register,
+    Player: Player
+  };
 
 });
