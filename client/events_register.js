@@ -1,5 +1,7 @@
-define(['views/login'],
-function (loginView) {
+define([
+       'views/login',
+       'models/player'
+], function () {
 
   var args = [].slice.call(arguments);
 
