@@ -45,7 +45,7 @@ define(['jquery', 'views/login'], function ($, loginView) {
     var view = new loginView.View({hub: hub});
     view.render();
     $('.login button').click();
-    sinon.assert.calledWith(hub.pub, 'socket:join:room', {room: 'game1'});
+    sinon.assert.calledWith(hub.pub, 'socket:join:game', {game: 'game1'});
   });
 
 });
