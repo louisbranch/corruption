@@ -5,6 +5,13 @@ function (_, Backbone) {
 
     initialize: function (attrs, options) {
       _.extend(this, _.pick(options, 'hub'));
+      this.hub.sub('socket:player:setCurrent', this.setCurrent.bind(this));
+    },
+
+    setCurrent: function (data) {
+      if (this.get('id') === data.id) {
+        this.current = true;
+      }
     }
 
   });
