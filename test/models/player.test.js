@@ -1,13 +1,6 @@
 define(['models/player'], function (unit) {
 
-  module('player model register socket event', {
-    setup: function () {
-      this.realPlayer = unit.Player;
-    },
-    teardown: function () {
-      unit.Player = this.realPlayer;
-    }
-  });
+  module('player model register socket event');
 
   test('subscribes to socket:player:joined event', function () {
     expect(1);
@@ -17,12 +10,12 @@ define(['models/player'], function (unit) {
   });
 
   test('socket:player:joined creates a new player', function () {
-    expect(2);
-    var Player = unit.Player = sinon.spy();
+    expect(1);
     var hub = {sub: function(name, cb){ cb({id: 1, name: 'Luiz'}); }};
+    var mock = sinon.mock(unit);
+    mock.expects('Player').withArgs({id: 1, name: 'Luiz'}, {hub: hub});
     unit.register(hub);
-    sinon.assert.calledWithNew(Player);
-    sinon.assert.calledWith(Player, {id: 1, name: 'Luiz'}, {hub: hub});
+    mock.verify();
   });
 
   module('player model initialization');
