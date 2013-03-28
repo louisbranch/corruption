@@ -31,8 +31,8 @@ fn.join = function (socket, data) {
   if (this.hasSocket(socket)) { return; }
 
   var player = this.addPlayer(socket);
-  this.broadcast('socket:game:joined', player);
-  socket.emit('socket:setPlayer', {id: player.id});
+  this.broadcast('socket:player:joined', player);
+  socket.emit('socket:player:setCurrent', {id: player.id});
 };
 
 fn.broadcast = function (event, data) {
