@@ -1,14 +1,5 @@
 define(['jquery', 'views/login'], function ($, unit) {
 
-  module('login view register socket event', {
-    setup: function () {
-      this.realView = unit.View;
-    },
-    teardown: function () {
-      unit.View = this.realView;
-    }
-  });
-
   test('register socket:connected event', function () {
     expect(1);
     var hub = {sub: sinon.spy()};
@@ -17,17 +8,14 @@ define(['jquery', 'views/login'], function ($, unit) {
   });
 
   test('socket:connected event render new view', function (){
-    expect(3);
-    var View = unit.View = sinon.stub();
-    var render = sinon.spy();
+    expect(2);
     var hub = {sub: function(name, cb){ cb(); }};
-
-    View.returns({render: render});
+    var mock = sinon.mock(unit);
+    var render = sinon.spy();
+    mock.expects('View').withArgs({hub: hub}).returns({render: render});
     unit.register(hub);
-
-    sinon.assert.calledWithNew(View);
-    sinon.assert.calledWith(View, {hub: hub});
     sinon.assert.called(render);
+    mock.verify();
   });
 
   module('login view initialization');
