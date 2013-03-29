@@ -22,7 +22,7 @@ define(['models/player'], function (unit) {
 
   test('has hub access', function () {
     expect(1);
-    var hub = {sub: sinon.spy()};
+    var hub = {sub: sinon.stub()};
     var player = new unit.Player({}, {hub: hub});
     equal(player.hub, hub);
   });
