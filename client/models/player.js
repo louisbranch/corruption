@@ -6,6 +6,7 @@ function (_, Backbone) {
     initialize: function (attrs, options) {
       _.extend(this, _.pick(options, 'hub'));
       this.hub.sub('socket:player:setCurrent', this.setCurrent.bind(this));
+      this.hub.pub('player:created', this);
     },
 
     setCurrent: function (data) {

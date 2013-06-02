@@ -22,25 +22,31 @@ define(['models/player'], function (unit) {
 
   test('has hub access', function () {
     expect(1);
-    var hub = {sub: sinon.stub()};
+    var hub = {sub: sinon.stub(), pub: sinon.stub()};
     var player = new unit.Player({}, {hub: hub});
     equal(player.hub, hub);
   });
 
   test('subscribes to socket:player:setCurrent event', function () {
     expect(1);
-    var hub = {sub: sinon.spy()};
+    var hub = {sub: sinon.spy(), pub: sinon.stub()};
     var player = new unit.Player({}, {hub: hub});
     sinon.assert.calledWith(hub.sub, 'socket:player:setCurrent');
   });
 
   test('sets current player', function () {
     expect(2);
-    var hub = {sub: function(name, cb){ cb({id: 1}); }};
+    var hub = {sub: function(name, cb){ cb({id: 1}); }, pub: sinon.stub()};
     var player1 = new unit.Player({id: 1}, {hub: hub});
     var player2 = new unit.Player({id: 2}, {hub: hub});
     ok(player1.current);
     ok(!player2.current);
+  });
+
+  test('publishes player:created event', function () {
+    var hub = {sub: sinon.stub(), pub: sinon.spy()};
+    var player = new unit.Player({}, {hub: hub});
+    sinon.assert.calledWith(hub.pub, 'player:created', player);
   });
 
 });

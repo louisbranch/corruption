@@ -1,6 +1,7 @@
 define([
+       'models/player',
        'views/login',
-       'models/player'
+       'views/player'
 ], function () {
 
   var args = [].slice.call(arguments);

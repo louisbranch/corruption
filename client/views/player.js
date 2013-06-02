@@ -1,5 +1,5 @@
-define(['jquery', 'lodash', 'backbone', 'text!templates/player.mustache'],
-function ($, _, Backbone, template) {
+define(['jquery', 'lodash', 'backbone', 'mustache', 'text!templates/player.mustache'],
+function ($, _, Backbone, mustache, template) {
 
   var View = Backbone.View.extend({
 
@@ -10,7 +10,8 @@ function ($, _, Backbone, template) {
     },
 
     render: function () {
-      this.$el.html(template, this.model.toJSON());
+      var html = mustache.render(template, this.model.toJSON());
+      this.$el.html(html);
       $('#players').append(this.$el);
       return this;
     },

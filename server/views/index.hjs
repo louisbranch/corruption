@@ -9,5 +9,6 @@
   <body>
     <h1>{{ title }}</h1>
     <div id='login'></div>
+    <div id='players'></div>
   </body>
 </html>
